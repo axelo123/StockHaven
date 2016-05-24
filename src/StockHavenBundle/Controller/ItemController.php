@@ -67,7 +67,7 @@ class ItemController extends Controller
     public function deleteAction(Request $request)
     {
         $item_id = $request->query->get('id');
-        $item_found = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->findOneBy(array('id'=>$item_id));
+        $item_found = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findOneBy(array('id'=>$item_id));
         if($item_found)
         {
             $barcode = $this->getDoctrine()->getRepository('StockHavenBundle:barcode')->find($item_found->getBarcodeId());
