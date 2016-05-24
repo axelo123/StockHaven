@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="viewAll" class="page-header">
+                <br>
+                <h1>
+                    View All Type
+                </h1>
+                <div class="container">
+
+                    <div class="row">
+                        {% for type in types %}
+                        <div class="col-sm-4 col-md-2">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{ type.name }}</h3>
+                                </div>
+                                <button type="button" class="stock btn-primary" style="background-color: #605ca8;">
+                                    data add : {{ type.addDate|date("m/d/Y") }}<br>
+                                </button>
+                                <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                <button type="button" onclick='click_with_id("{{ path('sh_type_delete') }}","{{ type.id }}")' class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

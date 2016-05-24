@@ -1,0 +1,15 @@
+StockHavenBundle\Entity\barcode:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\barcodeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        barcode:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

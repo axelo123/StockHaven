@@ -1,0 +1,71 @@
+<br>
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Item</h3>
+    </div>
+    <!-- /.box-header -->
+
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tbody><tr>
+                <th>Name Item</th>
+                <th>Price</th>
+                <th>Store</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{% for store in item.stores %}{{ store.name }} {% endfor %}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.typeId.name }}</td>
+                </tr>
+            </tbody></table>
+    </div>
+    <div class="box-header with-border">
+        <h3 class="box-title">Stock</h3>
+    </div>
+    <!-- /.box-header -->
+
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tbody><tr>
+                <th>Name Stock</th>
+                <th>Owner</th>
+                <th>Number Item</th>
+                <th>Number User</th>
+                <th>Add Item in this Stock</th>
+            </tr>
+            {% for stock in stocks %}
+                {% if stock.users.contains(user) %}
+                <tr>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.userCreatorId.name }}</td>
+                    <td>{{ stock.items.count }}</td>
+                    <td>{{ stock.users.count }}</td>
+                    <td><button type="button" onclick='click_with_item_stock("{{ path('sh_stock_add_item_in_stock') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-success">
+                            <i class="fa fa-plus">
+                            </i>
+                        </button>
+                        <button type="button" onclick='click_with_item_stock("{{ path('sh_stock_remove_item_in_stock') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-danger">
+                            <i class="fa fa-minus">
+                            </i>
+                        </button>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody></table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>

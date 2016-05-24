@@ -1,0 +1,23 @@
+StockHavenBundle\Entity\type:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\typeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        expireDate:
+            type: datetimetz
+            nullable: true
+            column: expire_date
+        addDate:
+            type: datetimetz
+            nullable: true
+            column: add_date
+    lifecycleCallbacks: {  }

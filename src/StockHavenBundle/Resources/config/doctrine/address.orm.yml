@@ -1,0 +1,33 @@
+StockHavenBundle\Entity\address:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\addressRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        nbBox:
+            type: integer
+            nullable: true
+            column: nb_box
+        street:
+            type: string
+            length: 255
+    manyToOne:
+        postalCodeId:
+            targetEntity: postalCode
+            inversedBy: id
+            joinColumn:
+                name: postal_code_id
+                referencedColumnName: id
+    oneToOne:
+        storeId:
+            targetEntity: store
+            inversedBy: id
+            joinColumn:
+                name: store_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

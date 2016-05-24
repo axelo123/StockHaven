@@ -1,0 +1,19 @@
+StockHavenBundle\Entity\country:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\countryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        shortName:
+            type: string
+            length: '10'
+            column: short_name
+    lifecycleCallbacks: {  }

@@ -1,0 +1,26 @@
+StockHavenBundle\Entity\currency:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\currencyRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        longName:
+            type: string
+            length: 255
+            nullable: true
+            column: long_name
+        shortName:
+            type: string
+            length: '10'
+            nullable: true
+            column: short_name
+        symbol:
+            type: string
+            length: '10'
+            nullable: true
+    lifecycleCallbacks: {  }

@@ -1,0 +1,72 @@
+StockHavenBundle\Entity\item:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\itemRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        quantity:
+            type: integer
+            nullable: true
+        isDelete:
+            type: boolean
+            nullable: true
+            column: is_delete
+        countUpdate:
+            type: integer
+            nullable: true
+            column: count_update
+        price:
+            type: float
+            nullable: true
+        description:
+            type: string
+            length: 255
+            nullable: true
+    manyToMany:
+        stores:
+            targetEntity: store
+            inversedBy: items
+            joinTable:
+                name: items_stores
+                joinColumns:
+                    item_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    store_id:
+                        referencedColumnName: id
+        stocks:
+            targetEntity: stock
+            inversedBy: items
+            joinTable:
+                name: items_stocks
+                joinColumns:
+                    item_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    stock_id:
+                        referencedColumnName: id
+    manyToOne:
+        currencyId:
+            targetEntity: currency
+            joinColumn:
+                name: currency_id
+                referencedColumnName: id
+        typeId:
+            targetEntity: type
+            joinColumn:
+                name: type_id
+                referencedColumnName: id
+        barcodeId:
+            targetEntity: barcode
+            joinColumn:
+                name: barcode_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

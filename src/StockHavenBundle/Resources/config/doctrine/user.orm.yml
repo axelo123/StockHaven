@@ -1,0 +1,28 @@
+StockHavenBundle\Entity\user:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\userRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 255
+        token:
+            type: string
+            length: 255
+            nullable: true
+        fullName:
+            type: string
+            length: 255
+        isSuperUser:
+            type: boolean
+            nullable: true
+    lifecycleCallbacks: {  }

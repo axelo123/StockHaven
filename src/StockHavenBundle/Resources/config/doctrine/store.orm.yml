@@ -1,0 +1,22 @@
+StockHavenBundle\Entity\store:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\storeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        picture:
+            type: string
+            length: 255
+    #manyToMany:
+    #    items:
+    #        tagetEntity: item
+    #        mappedBy: stores
+    lifecycleCallbacks: {  }

@@ -1,0 +1,69 @@
+{% extends "@StockHaven/Layout/admin-lte.twig" %}
+{% set skin_color_lte = "skin-purple" %}
+{% set path_ajax = "ajax" %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset("bundles/smsite/css/site-part.css") }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset("bundles/smsite/css/chat-box.css") }}"/>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+{% endblock %}
+{% block title_lte %}Stock Haven{% endblock %}
+{% block logo_href %}#{% endblock %}
+{% block logo_mini_lte %}<b>SH</b>{% endblock %}
+{% block logo_lg_lte %}<b>Stock</b>Haven{% endblock %}
+{% block menu_rigth_lte %}
+        <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+            <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="label label-success">4</span>
+                </a>
+            </li>
+            <!-- Notifications: style can be found in dropdown.less -->
+            <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bell-o"></i>
+                    <span class="label label-warning">10</span>
+                </a>
+            </li>
+            <!-- Tasks: style can be found in dropdown.less -->
+            <li class="dropdown tasks-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-flag-o"></i>
+                    <span class="label label-danger">9</span>
+                </a>
+            </li>
+            <!-- Control Sidebar Toggle Button -->
+            <li>
+                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            </li>
+        </ul>
+{% endblock %}
+{% block main_sidebar_lte %}
+    {% include "StockHavenBundle:site-main:main-sidebar.include.twig" %}
+{% endblock %}
+{% block content_header_lte %}
+{% endblock %}
+
+{% block footer_left_lte %}
+    <strong>Axel Verbeiren © 2016-2017</strong>
+{% endblock %}
+
+{% block footer_rigth_lte %}
+    <b>Version</b> 1.0
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/smsite/js/chat-box.js") }}"></script>
+    <script src="{{ asset("bundles/smsite/js/site-part.js") }}"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+{% endblock %}
+{% block control_sidebar_lte %}
+    {% include "@StockHaven/site-main/main-sidebar/barRight.twig" %}
+{% endblock %}
+{% block end_body_lte %}
+
+{% endblock %}

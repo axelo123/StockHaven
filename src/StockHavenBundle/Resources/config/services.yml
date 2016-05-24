@@ -1,0 +1,62 @@
+services:
+  listener.requestresponse:
+    class: StockHavenBundle\EventListener\UserCheckListener
+    arguments: [ @service_container ]
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+  user.services:
+    class: StockHavenBundle\Services\UserServices
+    arguments: [ @service_container ]
+
+  barcode.services:
+      class: StockHavenBundle\Services\BarcodeServices
+      arguments: [ @service_container ]
+
+  currency.services:
+      class: StockHavenBundle\Services\CurrencyServices
+      arguments: [ @service_container ]
+
+  item.services:
+      class: StockHavenBundle\Services\ItemServices
+      arguments: [ @service_container ]
+
+  operation.services:
+      class: StockHavenBundle\Services\OperationServices
+      arguments: [ @service_container ]
+
+  saveoperation.services:
+      class: StockHavenBundle\Services\SaveOperationServices
+      arguments: [ @service_container ]
+
+  stock.services:
+      class: StockHavenBundle\Services\StockServices
+      arguments: [ @service_container ]
+
+  type.services:
+      class: StockHavenBundle\Services\TypeServices
+      arguments: [ @service_container ]
+
+  address.services:
+        class: StockHavenBundle\Services\AddressServices
+        arguments: [ @service_container ]
+
+  country.services:
+        class: StockHavenBundle\Services\CountryServices
+        arguments: [ @service_container ]
+
+  notification.services:
+        class: StockHavenBundle\Services\NotificationServices
+        arguments: [ @service_container ]
+
+  postalcode.services:
+        class: StockHavenBundle\Services\PostalCodeServices
+        arguments: [ @service_container ]
+
+  store.services:
+        class: StockHavenBundle\Services\StoreServices
+        arguments: [ @service_container ]
+
+  item_stock.services:
+        class: StockHavenBundle\Services\Item_StockServices
+        arguments: [ @service_container ]

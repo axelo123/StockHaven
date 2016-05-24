@@ -1,0 +1,39 @@
+<div class="tab-content">
+    <!-- Home tab content -->
+    <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active">
+        <div>
+            <div class="form-group">
+                <i class="fa fa-sign-out" aria-hidden="true"><a href='{{ path('sh_logout') }}' style="color: white"> Logout</a></i>
+            </div>
+            <h4 class="control-sidebar-heading">Profile</h4>
+            <form id="form" action="#">
+                <div class="form-group">
+                    <label for="FullName">change FullName : </label>
+                    <input type="text" class="form-control" name="fullName" value='{{ name }}'>
+                </div>
+                <div class="form-group">
+                    <label for="Password">Current Password : </label>
+                    <input type="password" class="form-control" name="password" >
+                </div>
+                <div class="form-group">
+                    <label for="NewPassword">New Password : </label>
+                    <input type="password" class="form-control" name="newPassword" >
+                </div>
+                <div class="form-group">
+                    <label for="RepeatPassword">Repeat new Password : </label>
+                    <input type="password" class="form-control" name="repeatPassword" >
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="background-color: #605ca8;">Save Change</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.tab-pane -->
+</div>
+<script>
+    $('#form').submit(function(e) {
+        e.preventDefault();
+        post_form('{{ path('sh_change_profile') }}',$(this).serialize());
+    });
+</script>

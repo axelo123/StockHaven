@@ -1,0 +1,23 @@
+.chat-box-bas-droite
+{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: auto;
+}
+
+#chat-box .box{
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 5px;
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    z-index: 5;
+}
+
+.collapsed-box .box-title{
+    display:inline-block;
+    color: transparent;
+    background: transparent;
+}

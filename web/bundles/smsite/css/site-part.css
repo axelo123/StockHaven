@@ -1,0 +1,100 @@
+blockquote.style1 {
+    font: 14px/20px italic Times, serif;
+    border: 1px solid #e1cc89;
+    background-image: url(../images/openquote1.gif);
+    background-position: top left;
+    background-repeat: no-repeat;
+    text-indent: 23px;
+}
+blockquote.style1 span {
+    display: block;
+    background-image: url(../images/closequote1.gif);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
+
+.empty
+{
+    background: chocolate;
+}
+
+#iframe-cv
+{
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    height: 100%;
+    width: 100%;
+}
+
+hr.separate-1 {
+    height: 6px;
+    background: url(http://ibrahimjabbari.com/english/images/hr-11.png) repeat-x 0 0;
+    border: 0;
+}
+hr.separate-2 {
+    height: 6px;
+    background: url(http://ibrahimjabbari.com/english/images/hr-12.png) repeat-x 0 0;
+    border: 0;
+}
+
+hr.separate-3 {
+    border-top: 1px dashed #8c8b8b;
+}
+hr.separate-3:after {
+    content: '\002702';
+    display: inline-block;
+    position: relative;
+    top: -12px;
+    left: 40px;
+    padding: 0 3px;
+    background: #f0f0f0;
+    color: #8c8b8b;
+    font-size: 18px;
+}
+
+hr.separate-4 {
+    height: 30px;
+    border-style: solid;
+    border-color: #8c8b8b;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.separate-4:before {
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #8c8b8b;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+div{
+    z-index: 1;
+}
+div#background
+{
+    z-index: 0;
+}
+
+.dl-horizontal dt{
+    text-align: left;
+    width: auto;
+    padding-right: 1em;
+}
+
+.dl-horizontal dd{
+    margin-left: 0;
+}
+
+h1 .pointillé{
+    text-decoration: none;
+    border-bottom: dotted 1px;
+}
+/*
+* PATCH TO SHOW LINE NUMBER IN GOOGLE CODE PRETTIFY
+*/
+
+.prettyprint ol.linenums > li { list-style-type: decimal; }

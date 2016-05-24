@@ -1,0 +1,36 @@
+StockHavenBundle\Entity\saveOperation:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\saveOperationRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        modificationDate:
+            type: datetimetz
+            nullable: true
+            column: modification_date
+    oneToOne:
+        operationId:
+            targetEntity: operation
+            joinColumn:
+                name: operation_id
+                referencedColumnName: id
+                onDelete: CASCADE
+    manyToOne:
+        stockId:
+            targetEntity: stock
+            inversedBy: id
+            joinColumn:
+                name: stock_id
+                referencedColumnName: id
+        itemId:
+            targetEntity: item
+            inversedBy: id
+            joinColumn:
+                name: item_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

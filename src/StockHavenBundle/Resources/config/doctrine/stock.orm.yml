@@ -1,0 +1,45 @@
+StockHavenBundle\Entity\stock:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\stockRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        isDelete:
+            type: boolean
+            nullable: true
+            column: is_delete
+    manyToOne:
+        barcodeId:
+            targetEntity: barcode
+            joinColumn:
+                name: barcode_id
+                referencedColumnName: id
+        userCreatorId:
+            targetEntity: user
+            joinColumn:
+                name: user_creator_id
+                referencedColumnName: id
+    manyToMany:
+        users:
+            targetEntity: user
+            joinTable:
+                name: users_stocks
+                joinColumns:
+                    stock_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referencedColumnName: id
+        items:
+            targetEntity: item
+            mappedBy: stocks
+
+    lifecycleCallbacks: {  }
