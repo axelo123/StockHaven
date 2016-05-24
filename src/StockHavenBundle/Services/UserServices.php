@@ -23,7 +23,7 @@ class UserServices
         $this->container = $container;
     }
 
-    public function format_response(user $user)
+    public function format_response($user)
     {
             return array(
                 "name"=>$user->getName(),
