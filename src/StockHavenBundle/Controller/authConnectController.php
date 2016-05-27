@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthConnectController extends Controller
 {
     /**
+     * Verification si le user existe dans la db si oui connection et redirection a la page de start
+     *
      * @param Request $request
      * @return Response
      */
@@ -23,7 +25,6 @@ class AuthConnectController extends Controller
         
 
         $password = sha1($password);
-        //return new JsonResponse(array('accountName' => $password,'fsUserId'=>$username));
 
         // check that in the db
         $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->findOneBy(array(
@@ -39,8 +40,6 @@ class AuthConnectController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            // return service user
-            $service_user = $this->get('user.services');
             $response =  $this->render('StockHavenBundle:site-main:index.html.twig',array(
                 "name"=>$user->getFullName()
             ));
@@ -48,9 +47,13 @@ class AuthConnectController extends Controller
             return $response;
         }else if($this->getDoctrine()->getRepository('StockHavenBundle:user')->findOneBy(array('name'=>$username)))
         {
-            return $this->render('StockHavenBundle:Login:login.html.twig',array("error"=>"login does not exist !!!"));
+            return $this->render('StockHavenBundle:Login:login.html.twig',array(
+                "error"=>"incorrect password !!!"
+            ));
         }
-        return $this->render('StockHavenBundle:Login:login.html.twig',array("error"=>"incorrect password !!!"));
+        return $this->render('StockHavenBundle:Login:login.html.twig',array(
+            "error"=>"login does not exist !!!"
+        ));
     }
 
 

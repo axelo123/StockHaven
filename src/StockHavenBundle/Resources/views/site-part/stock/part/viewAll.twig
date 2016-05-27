@@ -8,6 +8,7 @@
                 </h1>
                 <div class="container">
                     <div class="row">
+                        {% set quantity = 0 %}
                         {% for stock in stocks %}
                         <div class="col-sm-4 col-md-2">
                             <div class="panel panel-info">
@@ -16,7 +17,7 @@
                                 </div>
                                 <button type="button" class="stock btn-primary" style="background-color: #605ca8;">
                                     Owner : {{ stock.userCreatorId.fullName }}<br>
-                                    Numbers Items : {{ stock.items.count }}<br>
+                                    Numbers Items : 0 <br>
                                     Numbers Users : {{ stock.users.count }}
                                 </button>
 

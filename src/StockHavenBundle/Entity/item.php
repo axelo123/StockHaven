@@ -63,14 +63,14 @@ class item
     private $stores;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var int
      */
-    private $stocks;
+    private $items_stocks_id;
     
 
     public function __construct() {
         $this->stores = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->stocks = new \Doctrine\Common\Collections\ArrayCollection();
+        //$this->items_stocks_id = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -331,39 +331,46 @@ class item
     public function getStores()
     {
         return $this->stores;
-    }
-
+    } 
+    
     /**
-     * Add store
      *
-     * @param \StockHavenBundle\Entity\stock $stock
      *
-     * @return item
+     * @param  $items_stocks_id
+     *
+     * @return items_stocks
      */
-    public function addStock($stock)
+    public function setItems_Stocks($items_stocks_id)
     {
-        $this->stocks[] = $stock;
+        $this->items_stocks_id = $items_stocks_id;
 
         return $this;
     }
 
     /**
-     * Remove store
-     *
-     * @param \StockHavenBundle\Entity\stock $stock
+     * @return int
      */
-    public function removeStock($stock)
+    public function getItems_stocks()
     {
-        $this->stocks->removeElement($stock);
+        return $this->items_stocks_id;
     }
 
     /**
-     * Get stores
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param items_stocks $items_stocks
      */
-    public function getStocks()
-    {
-        return $this->stocks;
+    public function addItemsStocks(items_stocks $items_stocks) {
+        $items_stocks->setItemId($this);
+
+        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
+        if (!$this->items_stocks_id->contains($items_stocks)) {
+            $this->items_stocks_id->add($items_stocks);
+        }
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection $items_stocks
+     */
+    public function getItemsStocks() {
+        return $this->items_stocks_id;
     }
 }

@@ -93,7 +93,6 @@ class ItemController extends Controller
         $type = $request->query->get('type');
         $store = $request->query->get('store');
         $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->findOneBy(array('name'=>$store));
-        //$dateExpire = $request->query->get('dateExpire');
 
 
         $barcode_repo = $this->getDoctrine()->getRepository('StockHavenBundle:barcode');

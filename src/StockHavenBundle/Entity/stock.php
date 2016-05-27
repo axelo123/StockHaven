@@ -1,6 +1,7 @@
 <?php
 
 namespace StockHavenBundle\Entity;
+use Proxies\__CG__\StockHavenBundle\Entity\item_stock;
 
 /**
  * stock
@@ -33,9 +34,9 @@ class stock
     private $barcodeId;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var int
      */
-    private $items;
+    private $items_stocks_id;
 
 
     /**
@@ -183,7 +184,7 @@ class stock
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+        //$this->items_stocks_id = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -221,36 +222,42 @@ class stock
     }
 
     /**
-     * Add user
+     * 
      *
-     * @param \StockHavenBundle\Entity\item $item
+     * @param  $items_stocks_id
      *
-     * @return stock
+     * @return item_stock
      */
-    public function addItems($item)
+    public function setItems_Stocks($items_stocks_id)
     {
-        $this->items[] = $item;
+        $this->items_stocks_id = $items_stocks_id;
 
         return $this;
     }
 
     /**
-     * Remove user
-     *
-     * @param \StockHavenBundle\Entity\item $item
+     * @return int
      */
-    public function removeItems($item)
+    public function getItems_stocks()
     {
-        $this->items->removeElement($item);
+        return $this->items_stocks_id;
     }
 
     /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param items_stocks $items_stocks
      */
-    public function getItems()
-    {
-        return $this->items;
+    public function addItemsStocks(items_stocks $items_stocks) {
+        $items_stocks->setStockId($this);
+        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
+        if (!$this->items_stocks_id->contains($items_stocks)) {
+            $this->items_stocks_id->add($items_stocks);
+        }
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection $items_stocks
+     */
+    public function getItemsStocks() {
+        return $this->items_stocks_id;
     }
 }

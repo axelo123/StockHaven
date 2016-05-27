@@ -38,8 +38,8 @@ StockHavenBundle\Entity\stock:
                 inverseJoinColumns:
                     user_id:
                         referencedColumnName: id
-        items:
-            targetEntity: item
-            mappedBy: stocks
-
+    oneToMany:
+        items_stocks_id:
+            targetEntity: items_stocks
+            mappedBy: stock_id
     lifecycleCallbacks: {  }

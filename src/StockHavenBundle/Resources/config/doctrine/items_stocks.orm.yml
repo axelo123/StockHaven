@@ -1,0 +1,27 @@
+StockHavenBundle\Entity\items_stocks:
+    type: entity
+    table: null
+    repositoryClass: StockHavenBundle\Repository\items_stocksRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        quantity:
+            type: integer
+    manyToOne:
+        itemId:
+            targetEntity: item
+            inversedBy: items_stocks_id
+            joinColumn:
+                name: item_id
+                referencedColumnName: items_stocks_id
+        stockId:
+            targetEntity: stock
+            inversedBy: items_stocks_id
+            joinColumn:
+                name: stock_id
+                referencedColumnName: items_stocks_id
+    lifecycleCallbacks: {  }
