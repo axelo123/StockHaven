@@ -41,18 +41,18 @@ class AuthConnectController extends Controller
             $em->flush();
 
             $response =  $this->render('StockHavenBundle:site-main:index.html.twig',array(
-                "user"=>$user
+                'user'=>$user
             ));
             $response->headers->setCookie(new Cookie('token', $user->getToken()));
             return $response;
         }else if($this->getDoctrine()->getRepository('StockHavenBundle:user')->findOneBy(array('name'=>$username)))
         {
             return $this->render('StockHavenBundle:Login:login.html.twig',array(
-                "error"=>"incorrect password !!!"
+                'error'=>"incorrect password !!!"
             ));
         }
         return $this->render('StockHavenBundle:Login:login.html.twig',array(
-            "error"=>"login does not exist !!!"
+            'error'=>"login does not exist !!!"
         ));
     }
 
@@ -131,11 +131,11 @@ class AuthConnectController extends Controller
                 $user->createToken();
                 $em->flush();
             }
-            $response = $this->render('StockHavenBundle:site-main:index.html.twig', array("user"=>$user));
+            $response = $this->render('StockHavenBundle:site-main:index.html.twig', array('user'=>$user));
             $response->headers->setCookie(new Cookie('token', $user->getToken()));
             return $response;
         }
-        return $this->render('StockHavenBundle:Login:register.html.twig',array("error"=>"fill all the field"));
+        return $this->render('StockHavenBundle:Login:register.html.twig',array('error'=>"fill all the field"));
     }
 
     /**
