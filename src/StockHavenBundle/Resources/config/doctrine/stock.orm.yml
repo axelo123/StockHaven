@@ -39,7 +39,7 @@ StockHavenBundle\Entity\stock:
                     user_id:
                         referencedColumnName: id
     oneToMany:
-        items_stocks_id:
+        itemsStocks:
             targetEntity: items_stocks
-            mappedBy: id
+            mappedBy: stockId
     lifecycleCallbacks: {  }

@@ -1,7 +1,6 @@
 <?php
 
 namespace StockHavenBundle\Entity;
-use Proxies\__CG__\StockHavenBundle\Entity\item_stock;
 
 /**
  * stock
@@ -34,9 +33,9 @@ class stock
     private $barcodeId;
 
     /**
-     * @var int
+     * @var \stdClass
      */
-    private $items_stocks_id;
+    private $itemsStocks;
 
 
     /**
@@ -184,7 +183,7 @@ class stock
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-        //$this->items_stocks_id = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->itemsStocks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -222,42 +221,49 @@ class stock
     }
 
     /**
-     * 
+     * Set itemsStocks
      *
-     * @param  $items_stocks_id
-     *
-     * @return item_stock
+     * @param \stdClass $itemsStocks
+     * @return item
      */
-    public function setItems_Stocks($items_stocks_id)
+    public function setItemsStocks($itemsStocks)
     {
-        $this->items_stocks_id = $items_stocks_id;
+        $this->itemsStocks = $itemsStocks;
 
         return $this;
     }
 
     /**
-     * @return int
+     * Get itemsStocks
+     *
+     * @return \stdClass
      */
-    public function getItems_stocks()
+    public function getItemsStocks()
     {
-        return $this->items_stocks_id;
+        return $this->itemsStocks;
     }
 
     /**
-     * @param items_stocks $items_stocks
+     * Add itemsStocks
+     *
+     * @param  $itemsStocks
+     * @return item
      */
-    public function addItemsStocks(items_stocks $items_stocks) {
-        $items_stocks->setStockId($this);
-        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
-        if (!$this->items_stocks_id->contains($items_stocks)) {
-            $this->items_stocks_id->add($items_stocks);
-        }
+    public function addItemsStock( $itemsStocks)
+    {
+        $this->itemsStocks[] = $itemsStocks;
+
+        return $this;
     }
 
     /**
-     * @return \Doctrine\Common\Collections\ArrayCollection $items_stocks
+     * Remove itemsStocks
+     *
+     * @param  $itemsStocks
      */
-    public function getItemsStocks() {
-        return $this->items_stocks_id;
+    public function removeItemsStock($itemsStocks)
+    {
+        $this->itemsStocks->removeElement($itemsStocks);
     }
+
 }

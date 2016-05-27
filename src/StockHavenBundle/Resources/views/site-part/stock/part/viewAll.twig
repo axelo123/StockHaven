@@ -8,8 +8,11 @@
                 </h1>
                 <div class="container">
                     <div class="row">
-                        {% set quantity = 0 %}
                         {% for stock in stocks %}
+                            {% set quantity = 0 %}
+                            {% for item in stock.itemsStocks %}
+                                {% set quantity = item.quantity+quantity %}
+                            {% endfor %}
                         <div class="col-sm-4 col-md-2">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
@@ -17,10 +20,9 @@
                                 </div>
                                 <button type="button" class="stock btn-primary" style="background-color: #605ca8;">
                                     Owner : {{ stock.userCreatorId.fullName }}<br>
-                                    Numbers Items : 0 <br>
+                                    Numbers Items : {{ quantity }}<br>
                                     Numbers Users : {{ stock.users.count }}
                                 </button>
-
                                 {% if not stock.users.contains(user) %}
                                 <button type="button" onclick='click_with_id("{{ path('sh_stock_add_user') }}","{{ stock.id }}")' class="btn btn-success"><i class="fa fa-user-plus"></i></button>
                                 {% endif %}
