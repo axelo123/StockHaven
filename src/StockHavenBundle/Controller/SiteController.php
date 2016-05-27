@@ -40,6 +40,52 @@ class SiteController extends Controller
         }
     }
 
+    public function searchAction(Request $request)
+    {
+        $search = $request->query->get('search');
+        $barcode_found = $this->getDoctrine()->getRepository('StockHavenBundle:barcode')->findOneBy(array('barcode'=>$search));
+        $user_current = $this->get('user.services')->format_response($this->getUser());
+        $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user_current['id']);
+        if($barcode_found)
+        {
+            $item = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findOneBy(array('barcodeId'=>$barcode_found));
+            $stock = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->findOneBy(array('barcodeId'=>$barcode_found));
+            if($item)
+            {
+                return $this->render('@StockHaven/research/index.html.twig',array(
+                    'item'=>$item,
+                    'user'=>$user
+                ));
+            }
+            elseif($stock)
+            {
+                return $this->render('@StockHaven/research/index.html.twig',array(
+                    'stock'=>$stock,
+                    'user'=>$user
+                ));
+            }
+        }
+        else
+        {
+            $item = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findOneBy(array('name'=>$search));
+            $stock = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->findOneBy(array('name'=>$search));
+            if($item)
+            {
+                return $this->render('@StockHaven/research/index.html.twig',array(
+                    'item'=>$item,
+                    'user'=>$user
+                ));
+            }
+            elseif($stock)
+            {
+                return $this->render('@StockHaven/research/index.html.twig',array(
+                    'stock'=>$stock,
+                    'user'=>$user
+                ));
+            }
+        }
+        return $this->render('@StockHaven/research/index.html.twig');
+    }
     public function successDashboard($message)
     {
         $nbUser=$this->getDoctrine()->getRepository('StockHavenBundle:user')->findAll();

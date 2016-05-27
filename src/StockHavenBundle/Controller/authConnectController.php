@@ -41,7 +41,7 @@ class AuthConnectController extends Controller
             $em->flush();
 
             $response =  $this->render('StockHavenBundle:site-main:index.html.twig',array(
-                "name"=>$user->getFullName()
+                "user"=>$user
             ));
             $response->headers->setCookie(new Cookie('token', $user->getToken()));
             return $response;
@@ -131,7 +131,7 @@ class AuthConnectController extends Controller
                 $user->createToken();
                 $em->flush();
             }
-            $response = $this->render('StockHavenBundle:site-main:index.html.twig', array("name" => $fullName));
+            $response = $this->render('StockHavenBundle:site-main:index.html.twig', array("user"=>$user));
             $response->headers->setCookie(new Cookie('token', $user->getToken()));
             return $response;
         }

@@ -3,12 +3,12 @@
         <span class="fa fa-user" style="color: white;margin: 75%"></span>
     </div>
     <div class="pull-left info">
-        <span id="admin-name" style="color: white;">{{ name }}</span>
+        <span id="admin-name" style="color: white;">{{ user.fullName }}</span>
     </div>
     <div class="col-xs-12">
-        <form action="#" method="get" class="sidebar-form">
+        <form id="search" action="#" class="sidebar-form">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
                     <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                     </button>
@@ -17,3 +17,11 @@
         </form>
     </div>
 </div>
+<script>
+    $('#search').submit(function(e) {
+        e.preventDefault();
+        post_form('{{ path('sh_search') }}',$(this).serialize());
+        document.getElementById('search').reset();
+    });
+
+</script>

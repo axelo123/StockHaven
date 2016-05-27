@@ -14,6 +14,10 @@ sh_site_part_project:
     path:     /ajax/projects/{slug}
     defaults: { _controller: StockHavenBundle:Site:projects, slug: 1 }
 
+sh_search:
+    path:     /ajax/search
+    defaults: { _controller: StockHavenBundle:Site:search }
+
 sh_connection:
     path:     /
     defaults: { _controller: StockHavenBundle:AuthConnect:Start }

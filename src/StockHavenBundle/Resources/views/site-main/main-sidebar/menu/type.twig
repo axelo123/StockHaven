@@ -1,4 +1,4 @@
-
+{% if user.isSuperUser %}
 <li class="treeview">
     <a href="#" onclick="get_part_html_put_content('li-store','{{ path('sh_type') }}','content-content-lte')">
         <i class="fa fa-shopping-bag" aria-hidden="true"></i>
@@ -11,3 +11,4 @@
         <li><a href="#viewAll" ><i class="fa fa-object-group" aria-hidden="true"></i> View All</a></li>
     </ul>
 </li>
+{% endif %}
