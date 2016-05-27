@@ -17,11 +17,11 @@ StockHavenBundle\Entity\items_stocks:
             inversedBy: items_stocks_id
             joinColumn:
                 name: item_id
-                referencedColumnName: items_stocks_id
+                referencedColumnName: id
         stockId:
             targetEntity: stock
             inversedBy: items_stocks_id
             joinColumn:
                 name: stock_id
-                referencedColumnName: items_stocks_id
+                referencedColumnName: id
     lifecycleCallbacks: {  }

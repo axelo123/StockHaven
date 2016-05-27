@@ -41,5 +41,5 @@ StockHavenBundle\Entity\stock:
     oneToMany:
         items_stocks_id:
             targetEntity: items_stocks
-            mappedBy: stock_id
+            mappedBy: id
     lifecycleCallbacks: {  }
