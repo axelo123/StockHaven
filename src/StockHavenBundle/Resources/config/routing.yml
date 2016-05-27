@@ -10,6 +10,10 @@ sh_dashboard_remove_super_user:
     path:     /ajax/dashboard/removeSuperUser
     defaults: { _controller: StockHavenBundle:Site:removeSuperUser }
 
+sh_dev_axel:
+    path:     /dev/axel/currency
+    defaults: {_controller: StockHavenBundle:DevAxel:currency }
+
 sh_site_part_project:
     path:     /ajax/projects/{slug}
     defaults: { _controller: StockHavenBundle:Site:projects, slug: 1 }
