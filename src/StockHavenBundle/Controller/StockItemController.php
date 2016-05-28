@@ -71,7 +71,7 @@ class StockItemController extends Controller
             $items_stocks = new items_stocks();
 
             $em->persist($items_stocks);
-            $stock->addStockItem($items_stocks);
+            $stock->addStocksItems($items_stocks);
             $item->addItemsStock($items_stocks);
             $items_stocks->setQuantity(1);
 
@@ -101,16 +101,25 @@ class StockItemController extends Controller
             'stockId'=>$stock
         ));
         $em = $this->getDoctrine()->getManager();
-        if($items_stocks && $items_stocks->getQuantity()-1 != 0 )
+        if($items_stocks && $items_stocks->getQuantity() > 1 )
         {
             $em->persist($items_stocks);
             $items_stocks->setQuantity($items_stocks->getQuantity()-1);
         }
-        else
+        elseif($items_stocks)
         {
-            $em->persist($stock);
+            $em->persist($items_stocks);
+            $items_stocks->setQuantity(0);
             $stock->removeStocksItems($items_stocks);
-            return $this->errorSelectStock("No Item in this Stock !!!",$item);
+            $item->removeItemsStock($items_stocks);
+            $em->remove($items_stocks);
+            $em->flush();
+
+            return $this->errorSelectStock("No ".$item->getName()." in this Stock now !!!",$item);
+        }
+        elseif (!$items_stocks)
+        {
+            return $this->errorSelectStock("No ".$item->getName()." in this Stock !!!",$item);
         }
         $em->flush();
 

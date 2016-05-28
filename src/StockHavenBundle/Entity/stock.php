@@ -226,7 +226,7 @@ class stock
      * @param items_stocks $itemsStocks
      * @return item
      */
-    public function setItemsStocks(items_stocks $itemsStocks)
+    public function setStocksItems(items_stocks $itemsStocks)
     {
         $this->itemsStocks = $itemsStocks;
 
@@ -249,7 +249,7 @@ class stock
      * @param  $itemsStocks
      * @return item
      */
-    public function addStockItem(items_stocks $itemsStocks)
+    public function addStocksItems(items_stocks $itemsStocks)
     {
 
         $itemsStocks->setStockId($this);
@@ -266,39 +266,5 @@ class stock
     public function removeStocksItems(items_stocks $itemsStocks)
     {
         $this->itemsStocks->removeElement($itemsStocks);
-    }
-
-
-    /**
-     * Add itemsStocks
-     *
-     * @param \StockHavenBundle\Entity\items_stocks $itemsStocks
-     * @return stock
-     */
-    public function addItemsStock(\StockHavenBundle\Entity\items_stocks $itemsStocks)
-    {
-        $this->itemsStocks[] = $itemsStocks;
-
-        return $this;
-    }
-
-    /**
-     * Remove itemsStocks
-     *
-     * @param \StockHavenBundle\Entity\items_stocks $itemsStocks
-     */
-    public function removeItemsStock(\StockHavenBundle\Entity\items_stocks $itemsStocks)
-    {
-        $this->itemsStocks->removeElement($itemsStocks);
-    }
-
-    /**
-     * Get itemsStocks
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getItemsStocks()
-    {
-        return $this->itemsStocks;
     }
 }
