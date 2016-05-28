@@ -16,10 +16,10 @@ function get_part_html_put_content(id_from,path,id_to_put)
                 url: path,
                 success: function(result){
                     $("#"+id_to_put).html(result);
-                },
-                error: function () {
-                    window.location.href = '/';
-                }
+                }//,
+                //error: function () {
+                //    window.location.href = '/';
+                //}
             }
         );
     }
@@ -36,9 +36,6 @@ function post_form(path,data)
             data: data,
             success: function(result){
                 content.html(result);
-            },
-            error: function () {
-                window.location.href = '/';
             }
 
         }
@@ -71,10 +68,10 @@ function post_form_with_image(path,data)
             success: function(result)
             {
                 content.html(result);
-            },
-            error: function () {
-                window.location.href = '/';
-            }
+            }//,
+            //error: function () {
+              //  window.location.href = '/';
+            //}
         }
     );
 }

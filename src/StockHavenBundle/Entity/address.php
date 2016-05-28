@@ -23,12 +23,12 @@ class address
     private $street;
 
     /**
-     * @var int
+     * @var postalCode
      */
     private $postalCodeId;
 
     /**
-     * @var int
+     * @var store
      */
     private $storeId;
 
@@ -94,7 +94,7 @@ class address
     /**
      * Set postalCodeId
      *
-     * @param integer $postalCodeId
+     * @param postalCode $postalCodeId
      *
      * @return address
      */
@@ -108,7 +108,7 @@ class address
     /**
      * Get postalCodeId
      *
-     * @return int
+     * @return postalCode
      */
     public function getPostalCodeId()
     {
@@ -118,7 +118,7 @@ class address
     /**
      * Set storeId
      *
-     * @param integer $storeId
+     * @param store $storeId
      *
      * @return address
      */
@@ -132,7 +132,7 @@ class address
     /**
      * Get storeId
      *
-     * @return int
+     * @return store
      */
     public function getStoreId()
     {

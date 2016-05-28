@@ -19,7 +19,7 @@
                                     <img src='{{ asset(store.picture) }}' width="145" height="145" >
                                 </button>
                                 {% if user.isSuperUser %}
-                                <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                <button type="button" onclick='click_with_id("{{ path('sh_store_edit_view') }}","{{ store.id }}")' class="btn btn-warning"><i class="fa fa-edit"></i></button>
                                 <button type="button" onclick='click_with_id("{{ path('sh_store_delete') }}","{{ store.id }}")' class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 {% endif %}
                             </div>

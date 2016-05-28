@@ -1,3 +1,7 @@
+#
+# Site principal
+#
+
 sh_site_part_dashboard:
     path:     /ajax/dashboard
     defaults: { _controller: StockHavenBundle:Site:dashboard }
@@ -10,17 +14,29 @@ sh_dashboard_remove_super_user:
     path:     /ajax/dashboard/removeSuperUser
     defaults: { _controller: StockHavenBundle:Site:removeSuperUser }
 
+sh_search:
+    path:     /ajax/search
+    defaults: { _controller: StockHavenBundle:Site:search }
+
+#
+# Création d'élément dans la db
+#
+
 sh_dev_axel:
     path:     /dev/axel/currency
     defaults: {_controller: StockHavenBundle:DevAxel:currency }
+
+#
+# affichage du projet
+#
 
 sh_site_part_project:
     path:     /ajax/projects/{slug}
     defaults: { _controller: StockHavenBundle:Site:projects, slug: 1 }
 
-sh_search:
-    path:     /ajax/search
-    defaults: { _controller: StockHavenBundle:Site:search }
+#
+# cooonection , déconnection, enregistrement
+#
 
 sh_connection:
     path:     /
@@ -34,10 +50,6 @@ sh_register:
     path:     /register
     defaults: { _controller: StockHavenBundle:AuthConnect:Register }
 
-sh_stock_add:
-    path:     /ajax/stock/add
-    defaults: { _controller: StockHavenBundle:AuthConnect:StockAdd }
-
 sh_login:
     path:     /login_check
     defaults: { _controller: StockHavenBundle:AuthConnect:LoginCheck }
@@ -47,6 +59,22 @@ sh_register_check:
     path:     /register_check
     defaults: { _controller: StockHavenBundle:AuthConnect:RegisterCheck }
     methods: [POST]
+
+#
+# Gestion de stock
+#
+
+sh_stock_add:
+    path:     /ajax/stock/add
+    defaults: { _controller: StockHavenBundle:AuthConnect:StockAdd }
+
+sh_stock_edit_view:
+    path:     /ajax/stock/editView
+    defaults: { _controller: StockHavenBundle:Stock:editView }
+
+sh_stock_edit:
+    path:     /ajax/stock/edit
+    defaults: { _controller: StockHavenBundle:Stock:edit }
 
 sh_stock_create:
     path:     /ajax/stock/create
@@ -79,6 +107,18 @@ sh_stock:
     path:     /ajax/stock
     defaults: { _controller: StockHavenBundle:Stock:stock }
 
+#
+# Gestion d'item
+#
+
+sh_item_edit_view:
+    path:     /ajax/item/editView
+    defaults: { _controller: StockHavenBundle:Item:editView }
+
+sh_item_edit:
+    path:     /ajax/item/edit
+    defaults: { _controller: StockHavenBundle:Item:edit }
+
 sh_item_delete:
     path:     /ajax/item/delete
     defaults: { _controller: StockHavenBundle:Item:delete }
@@ -90,6 +130,18 @@ sh_item_create:
 sh_item:
     path:     /ajax/item
     defaults: { _controller: StockHavenBundle:Item:item }
+
+#
+# Gestion de store
+#
+
+sh_store_edit_view:
+    path:     /ajax/store/edit/view
+    defaults: { _controller: StockHavenBundle:Store:editView }
+
+sh_store_edit:
+    path:     /ajax/store/edit
+    defaults: { _controller: StockHavenBundle:Store:edit }
 
 sh_store_create:
     path:     /ajax/store/create
@@ -103,9 +155,25 @@ sh_store:
     path:     /ajax/store
     defaults: { _controller: StockHavenBundle:Store:store}
 
+#
+# Profile change
+#
+
 sh_change_profile:
     path:     /ajax/profile
     defaults: { _controller:  StockHavenBundle:Site:profile }
+
+#
+# Gestion de type
+#
+
+sh_type_edit_view:
+    path:     /ajax/type/edit/view
+    defaults: { _controller:  StockHavenBundle:Type:editView }
+
+sh_type_edit:
+    path:     /ajax/type/edit
+    defaults: { _controller:  StockHavenBundle:Type:edit }
 
 sh_type_create:
     path:     /ajax/type/create
@@ -127,6 +195,9 @@ sh_type:
 
 
 
+#
+# page d'erreur par défaut
+#
 
 sh_site_part_deny_all_not_found:
     path:     /ajax/{path}

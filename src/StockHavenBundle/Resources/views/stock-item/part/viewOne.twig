@@ -41,7 +41,7 @@
             {% for stock in stocks %}
                 {% set quantity=0 %}
                 {% if stock.users.contains(user) %}
-                    {% for item in stock.itemsStocks %}
+                    {% for item in stock.stocksItems %}
                         {% set quantity = item.quantity+quantity %}
                     {% endfor %}
                 <tr>
@@ -61,7 +61,8 @@
                 </tr>
                 {% endif %}
             {% endfor %}
-            </tbody></table>
+            </tbody>
+        </table>
     </div>
     <!-- /.box-body -->
     <div class="box-footer clearfix">

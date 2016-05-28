@@ -56,21 +56,84 @@ class StockController extends Controller
             'user'=>$user,
         ));
     }
+    
+    public function editViewAction(Request $request)
+    {
+        $stock_id = $request->query->get('id');
+        $stock = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->find($stock_id);
+        
+        return $this->render('@StockHaven/edit/index.html.twig',array(
+            'stock'=>$stock
+        ));
+    }
+    
+    public function editAction(Request $request)
+    {
+        $stock_id = $request->query->get('stock_id');
+        $stock_name = $request->query->get('name');
+        $barcode_name = $request->query->get('barcode');
 
+        $stock = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->find($stock_id);
+
+        $barcode = $this->getDoctrine()->getRepository('StockHavenBundle:barcode')->findOneBy(array(
+            'barcode'=>$barcode_name
+        ));
+
+        $em = $this->getDoctrine()->getManager();
+
+        if($stock_name != $stock->getName())
+        {
+            $em->persist($stock);
+            $stock->setName($stock_name);
+        }
+        elseif ($barcode_name != $barcode->getBarcode())
+        {
+            $em->persist($barcode);
+            $barcode->setBarcode($barcode_name);
+        }
+        else
+        {
+            return $this->stockError("Stock up to date !!!");
+        }
+
+        $em->flush();
+
+        return $this->stockSuccess("Stock edited !!!");
+    }
 
     public function deleteAction(Request $request)
     {
         $stock_id = $request->query->get('id');
         $stock_found = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->findOneBy(array('id'=>$stock_id));
+        $stockName = $stock_found->getName();
+        $items_stocks = $this->getDoctrine()->getRepository('StockHavenBundle:items_stocks')->findBy(array(
+            'stockId'=>$stock_found
+        ));
         if($stock_found)
         {
-            $barcode = $this->getDoctrine()->getRepository('StockHavenBundle:barcode')->find($stock_found->getBarcodeId());
             $em=$this->getDoctrine()->getManager();
+
+            $barcode = $this->getDoctrine()->getRepository('StockHavenBundle:barcode')->find($stock_found->getBarcodeId());
+            if($items_stocks)
+            {
+                foreach ($items_stocks as $item_stock)
+                {
+                    $em->remove($item_stock);
+                }
+                //$stock_found->removeItemsStock($items_stocks->getItemId());
+
+            }
+            $em->persist($stock_found);
+            foreach($stock_found->getUsers() as $user)
+            {
+                $stock_found->removeUser($user);
+            }
             $em->remove($stock_found);
             $em->remove($barcode);
+
             $em->flush();
         }
-        return $this->stockSuccess("Stock deleted !!!");
+        return $this->stockSuccess("Stock ".$stockName." deleted !!!");
     }
 
     
@@ -104,7 +167,7 @@ class StockController extends Controller
         $stock->setUserCreatorId($user);
         $stock->addUser($user);
         $em->flush();
-        return $this->stockSuccess("Stock Create !!!");
+        return $this->stockSuccess("Stock : ".$stock->getName()." is created !!!");
     }
 
     public function removeUserAction(Request $request)

@@ -18,17 +18,17 @@ class saveOperation
     private $modificationDate;
 
     /**
-     * @var int
+     * @var operation
      */
     private $operationId;
 
     /**
-     * @var int
+     * @var stock
      */
     private $stockId;
 
     /**
-     * @var int
+     * @var item
      */
     private $itemId;
 
@@ -70,7 +70,7 @@ class saveOperation
     /**
      * Set operationId
      *
-     * @param integer $operationId
+     * @param operation $operationId
      *
      * @return saveOperation
      */
@@ -84,7 +84,7 @@ class saveOperation
     /**
      * Get operationId
      *
-     * @return int
+     * @return operation
      */
     public function getOperationId()
     {
@@ -94,7 +94,7 @@ class saveOperation
     /**
      * Set stockId
      *
-     * @param integer $stockId
+     * @param stock $stockId
      *
      * @return saveOperation
      */
@@ -108,7 +108,7 @@ class saveOperation
     /**
      * Get stockId
      *
-     * @return int
+     * @return stock
      */
     public function getStockId()
     {
@@ -118,7 +118,7 @@ class saveOperation
     /**
      * Set itemId
      *
-     * @param integer $itemId
+     * @param item $itemId
      *
      * @return saveOperation
      */
@@ -132,7 +132,7 @@ class saveOperation
     /**
      * Get itemId
      *
-     * @return int
+     * @return item
      */
     public function getItemId()
     {

@@ -16,9 +16,9 @@
                                     <h3 class="panel-title">{{ type.name }}</h3>
                                 </div>
                                 <button type="button" class="stock btn-primary" style="background-color: #605ca8;">
-                                    data add : {{ type.addDate|date("m/d/Y") }}<br>
+                                    data add : {{ type.addDate|date("d/m/Y") }}<br>
                                 </button>
-                                <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                <button type="button" onclick='click_with_id("{{ path('sh_type_edit_view') }}","{{ type.id }}")' class="btn btn-warning"><i class="fa fa-edit"></i></button>
                                 <button type="button" onclick='click_with_id("{{ path('sh_type_delete') }}","{{ type.id }}")' class="btn btn-danger"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>

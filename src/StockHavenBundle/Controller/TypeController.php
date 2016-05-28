@@ -50,7 +50,10 @@ class TypeController extends Controller
     {
         $type_id = $request->query->get('id');
         $type = $this->getDoctrine()->getRepository('StockHavenBundle:type')->find($type_id);
-        if($type)
+        $item = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findOneBy(array(
+            'typeId'=>$type
+        ));
+        if($type && !$item)
         {
             $em=$this->getDoctrine()->getManager();
             $em->remove($type);
@@ -58,9 +61,9 @@ class TypeController extends Controller
         }
         else
         {
-            return $this->typeError("Type not found !!!");
+            return $this->typeError($type->getName()." is used in Items !!!");
         }
-        return $this->typeSuccess("Type deleted !!!");
+        return $this->typeSuccess($type->getName()." deleted !!!");
     }
     
     public function createAction(Request $request)
@@ -76,8 +79,35 @@ class TypeController extends Controller
             $em->flush();
         }else
         {
-            return $this->typeError("Store Name already exist !!!");
+            return $this->typeError("Type Name already exist !!!");
         }
-        return $this->typeSuccess("Success");
+        return $this->typeSuccess("Type : ".$type->getName()." created with success !!!");
+    }
+
+    public function editViewAction(Request $request)
+    {
+        $type_id = $request->query->get('id');
+        $type = $this->getDoctrine()->getRepository('StockHavenBundle:type')->find($type_id);
+
+        return $this->render('@StockHaven/edit/index.html.twig',array(
+            'type'=>$type
+        ));
+
+    }
+
+    public function editAction(Request $request)
+    {
+        $type_id = $request->query->get('type_id');
+        $name = $request->query->get('name');
+        $type = $this->getDoctrine()->getRepository('StockHavenBundle:type')->find($type_id);
+        if ($type->getName() != $name) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($type);
+            $type->setName($name);
+            $em->flush();
+        } else {
+            $this->typeError("Type already up to date !!!");
+        }
+        return $this->typeSuccess("Type edited !!!");
     }
 }

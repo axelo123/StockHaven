@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="create" class="page-header">
+                <br>
+                <h1>Edit a Type<br>
+                </h1>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form action="#" id="form">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="name">Name Type*</label>
+                                <input type="number" name="type_id" value="{{ type.id }}" hidden>
+                                <input type="text" class="form-control" name="name" value="{{ type.name }}" required>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary" style="background-color: #605ca8;">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#form').submit(function(e) {
+        e.preventDefault();
+        post_form('{{ path('sh_type_edit') }}',$(this).serialize());
+    });
+</script>

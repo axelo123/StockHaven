@@ -15,12 +15,12 @@ class items_stocks
     private $id;
 
     /**
-     * @var integer
+     * @var item
      */
     private $itemId;
 
     /**
-     * @var integer
+     * @var stock
      */
     private $stockId;
 
@@ -43,7 +43,7 @@ class items_stocks
     /**
      * Set itemId
      *
-     * @param integer $itemId
+     * @param item $itemId
      * @return items_stocks
      */
     public function setItemId($itemId)
@@ -56,7 +56,7 @@ class items_stocks
     /**
      * Get itemId
      *
-     * @return integer 
+     * @return item 
      */
     public function getItemId()
     {
@@ -66,7 +66,7 @@ class items_stocks
     /**
      * Set stockId
      *
-     * @param integer $stockId
+     * @param stock $stockId
      * @return items_stocks
      */
     public function setStockId($stockId)
@@ -79,7 +79,7 @@ class items_stocks
     /**
      * Get stockId
      *
-     * @return integer 
+     * @return stock 
      */
     public function getStockId()
     {

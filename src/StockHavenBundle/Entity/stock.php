@@ -23,17 +23,17 @@ class stock
     private $isDelete;
 
     /**
-     * @var int
+     * @var user
      */
     private $userCreatorId;
 
     /**
-     * @var int
+     * @var barcode
      */
     private $barcodeId;
 
     /**
-     * @var \stdClass
+     * @var items_stocks
      */
     private $itemsStocks;
 
@@ -99,7 +99,7 @@ class stock
     /**
      * Set userCreatorId
      *
-     * @param integer $userCreatorId
+     * @param user $userCreatorId
      *
      * @return stock
      */
@@ -113,7 +113,7 @@ class stock
     /**
      * Get userCreatorId
      *
-     * @return int
+     * @return user
      */
     public function getUserCreatorId()
     {
@@ -123,7 +123,7 @@ class stock
     /**
      * Set barcodeId
      *
-     * @param integer $barcodeId
+     * @param barcode $barcodeId
      *
      * @return stock
      */
@@ -137,7 +137,7 @@ class stock
     /**
      * Get barcodeId
      *
-     * @return int
+     * @return barcode
      */
     public function getBarcodeId()
     {
@@ -189,11 +189,11 @@ class stock
     /**
      * Add user
      *
-     * @param \StockHavenBundle\Entity\user $user
+     * @param user $user
      *
      * @return stock
      */
-    public function addUser(\StockHavenBundle\Entity\user $user)
+    public function addUser(user $user)
     {
         $this->users[] = $user;
 
@@ -203,9 +203,9 @@ class stock
     /**
      * Remove user
      *
-     * @param \StockHavenBundle\Entity\user $user
+     * @param user $user
      */
-    public function removeUser(\StockHavenBundle\Entity\user $user)
+    public function removeUser(user $user)
     {
         $this->users->removeElement($user);
     }
@@ -223,10 +223,10 @@ class stock
     /**
      * Set itemsStocks
      *
-     * @param \stdClass $itemsStocks
+     * @param items_stocks $itemsStocks
      * @return item
      */
-    public function setItemsStocks($itemsStocks)
+    public function setItemsStocks(items_stocks $itemsStocks)
     {
         $this->itemsStocks = $itemsStocks;
 
@@ -236,9 +236,9 @@ class stock
     /**
      * Get itemsStocks
      *
-     * @return \stdClass
+     * @return items_stocks
      */
-    public function getItemsStocks()
+    public function getStocksItems()
     {
         return $this->itemsStocks;
     }
@@ -249,8 +249,10 @@ class stock
      * @param  $itemsStocks
      * @return item
      */
-    public function addItemsStock( $itemsStocks)
+    public function addStockItem(items_stocks $itemsStocks)
     {
+
+        $itemsStocks->setStockId($this);
         $this->itemsStocks[] = $itemsStocks;
 
         return $this;
@@ -261,7 +263,7 @@ class stock
      *
      * @param  $itemsStocks
      */
-    public function removeItemsStock($itemsStocks)
+    public function removeStocksItems(items_stocks $itemsStocks)
     {
         $this->itemsStocks->removeElement($itemsStocks);
     }

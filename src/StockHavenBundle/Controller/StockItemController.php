@@ -50,15 +50,17 @@ class StockItemController extends Controller
             'itemId'=>$item
         ));
 
+        $em = $this->getDoctrine()->getManager();
+
         if(!$items_stocks_found)
         {
             $items_stocks = new items_stocks();
-            $em = $this->getDoctrine()->getManager();
+
             $em->persist($items_stocks);
-            $items_stocks->setStockId($stock);
-            $items_stocks->setItemId($item);
+            $stock->addStockItem($items_stocks);
+            $item->addItemsStock($items_stocks);
             $items_stocks->setQuantity(1);
-            $em->flush();
+
         }
         else
         {
@@ -66,8 +68,10 @@ class StockItemController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($items_stocks_found);
             $items_stocks_found->setQuantity($quantity+1);
-            $em->flush();
+
         }
+
+        $em->flush();
 
         return $this->successSelectStock($item->getName()." add in ".$stock->getName()." !!!",$item);
     }
@@ -78,10 +82,21 @@ class StockItemController extends Controller
         $item = $request->query->get('item_id');
         $stock = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->find($stock);
         $item = $this->getDoctrine()->getRepository('StockHavenBundle:item')->find($item);
-
+        $items_stocks = $this->getDoctrine()->getRepository('StockHavenBundle:items_stocks')->findOneBy(array(
+            'itemId'=>$item,
+            'stockId'=>$stock
+        ));
         $em = $this->getDoctrine()->getManager();
-        $em->persist($stock);
-        $stock->removeItems($item);
+        if($items_stocks && $items_stocks->getQuantity()-1 != 0 )
+        {
+            $em->persist($items_stocks);
+            $items_stocks->setQuantity($items_stocks->getQuantity()-1);
+        }
+        else
+        {
+            $em->persist($stock);
+            $stock->removeStocksItems($items_stocks);
+        }
         $em->flush();
 
         return $this->successSelectStock($item->getName()." remove in ".$stock->getName()." !!!",$item);

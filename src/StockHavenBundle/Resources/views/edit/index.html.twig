@@ -1,0 +1,11 @@
+<div id="wrapper-stockItem">
+    {% if stock is defined %}
+    {% include "@StockHaven/edit/part/stock.twig" %}
+    {% elseif item is defined %}
+    {% include "@StockHaven/edit/part/item.twig" %}
+    {% elseif store is defined %}
+    {% include "@StockHaven/edit/part/store.twig" %}
+    {% elseif type is defined %}
+    {% include "@StockHaven/edit/part/type.twig" %}
+    {% endif %}
+</div>

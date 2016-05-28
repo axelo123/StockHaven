@@ -43,17 +43,17 @@ class item
     private $description;
 
     /**
-     * @var int
+     * @var type
      */
     private $typeId;
 
     /**
-     * @var int
+     * @var currency
      */
     private $currencyId;
 
     /**
-     * @var int
+     * @var barcode
      */
     private $barcodeId;
 
@@ -63,7 +63,7 @@ class item
     private $stores;
 
     /**
-     * @var \stdClass
+     * @var items_stocks
      */
     private $itemsStocks;
     
@@ -230,7 +230,7 @@ class item
     /**
      * Set typeId
      *
-     * @param integer $typeId
+     * @param type $typeId
      *
      * @return item
      */
@@ -244,7 +244,7 @@ class item
     /**
      * Get typeId
      *
-     * @return int
+     * @return type
      */
     public function getTypeId()
     {
@@ -254,7 +254,7 @@ class item
     /**
      * Set currencyId
      *
-     * @param integer $currencyId
+     * @param currency $currencyId
      *
      * @return item
      */
@@ -268,7 +268,7 @@ class item
     /**
      * Get currencyId
      *
-     * @return int
+     * @return currency
      */
     public function getCurrencyId()
     {
@@ -278,7 +278,7 @@ class item
     /**
      * Set barcodeId
      *
-     * @param integer $barcodeId
+     * @param barcode $barcodeId
      *
      * @return item
      */
@@ -292,7 +292,7 @@ class item
     /**
      * Get barcodeId
      *
-     * @return int
+     * @return barcode
      */
     public function getBarcodeId()
     {
@@ -302,11 +302,11 @@ class item
     /**
      * Add store
      *
-     * @param \StockHavenBundle\Entity\store $store
+     * @param store $store
      *
      * @return item
      */
-    public function addStore(\StockHavenBundle\Entity\store $store)
+    public function addStore(store $store)
     {
         $this->stores[] = $store;
 
@@ -316,9 +316,9 @@ class item
     /**
      * Remove store
      *
-     * @param \StockHavenBundle\Entity\store $store
+     * @param store $store
      */
-    public function removeStore(\StockHavenBundle\Entity\store $store)
+    public function removeStore(store $store)
     {
         $this->stores->removeElement($store);
     }
@@ -335,10 +335,10 @@ class item
     /**
      * Set itemsStocks
      *
-     * @param \stdClass $itemsStocks
+     * @param items_stocks $itemsStocks
      * @return item
      */
-    public function setItemsStocks($itemsStocks)
+    public function setItemsStocks(items_stocks $itemsStocks)
     {
         $this->itemsStocks = $itemsStocks;
 
@@ -348,12 +348,13 @@ class item
     /**
      * Get itemsStocks
      *
-     * @return \stdClass
+     * @return items_stocks
      */
     public function getItemsStocks()
     {
         return $this->itemsStocks;
     }
+    
 
     /**
      * Add itemsStocks
@@ -361,19 +362,20 @@ class item
      * @param  $itemsStocks
      * @return item
      */
-    public function addItemsStock( $itemsStocks)
+    public function addItemsStock(items_stocks $itemsStocks)
     {
+        $itemsStocks->setItemId($this);
         $this->itemsStocks[] = $itemsStocks;
-
+        
         return $this;
     }
 
     /**
      * Remove itemsStocks
      *
-     * @param  $itemsStocks
+     * @param $itemsStocks
      */
-    public function removeItemsStock($itemsStocks)
+    public function removeItemsStock(items_stocks $itemsStocks)
     {
         $this->itemsStocks->removeElement($itemsStocks);
     }

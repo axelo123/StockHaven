@@ -9,7 +9,7 @@
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
 {% endblock %}
 {% block title_lte %}Stock Haven{% endblock %}
-{% block logo_href %}#{% endblock %}
+{% block logo_href %}{% endblock %}
 {% block logo_mini_lte %}<b>SH</b>{% endblock %}
 {% block logo_lg_lte %}<b>Stock</b>Haven{% endblock %}
 {% block menu_rigth_lte %}
@@ -60,6 +60,9 @@
     <script src="{{ asset("bundles/smsite/js/chat-box.js") }}"></script>
     <script src="{{ asset("bundles/smsite/js/site-part.js") }}"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+    <script>
+        get_part_html_put_content(null,'{{ path_ajax }}/dashboard','content-content-lte');
+    </script>
 {% endblock %}
 {% block control_sidebar_lte %}
     {% include "@StockHaven/site-main/main-sidebar/barRight.twig" %}

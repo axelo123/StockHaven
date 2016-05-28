@@ -3,23 +3,7 @@
         <div class="col-sm-12">
             <div id="create" class="page-header">
                 <br>
-                {% if success is defined %}
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Success !</strong> {{ success }}
-                    </div>
-                {% endif %}
-                {% if error is defined %}
-                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Error !</strong> {{ error }}
-                    </div>
-                {% endif %}
-                <h1>Create new Stock<br>
+                <h1>Edit a Stock<br>
                 </h1>
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -29,12 +13,13 @@
                     <form id="form" action="#" >
                         <div class="box-body" >
                             <div class="form-group">
+                                <input type="number" name="stock_id" value="{{ stock.id }}" hidden>
                                 <label for="Name">Name Stock*</label>
-                                <input type="text" class="form-control" name="name" placeholder="Enter Name" required>
+                                <input type="text" class="form-control" name="name" value="{{ stock.name }}" required>
                             </div>
                             <div class="form-group">
                                 <label for="Barcode">Barcode*(fill last)</label>
-                                <input type="text" class="form-control" name="barcode" placeholder="Enter Barcode" required>
+                                <input type="text" class="form-control" name="barcode" value="{{ stock.barcodeId.barcode }}" required>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -51,6 +36,6 @@
 <script>
     $('#form').submit(function(e) {
         e.preventDefault();
-        post_form('{{ path('sh_stock_create') }}',$(this).serialize());
+        post_form('{{ path('sh_stock_edit') }}',$(this).serialize());
     });
 </script>

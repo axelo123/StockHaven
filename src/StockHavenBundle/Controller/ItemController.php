@@ -4,13 +4,15 @@ namespace StockHavenBundle\Controller;
 
 use StockHavenBundle\Entity\barcode;
 use StockHavenBundle\Entity\item;
-use StockHavenBundle\Entity\stock;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
 class ItemController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function itemAction()
     {
         $stores = $this->getDoctrine()->getRepository('StockHavenBundle:store')->findAll();
@@ -28,6 +30,104 @@ class ItemController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editViewAction(Request $request)
+    {
+        $item_id = $request->query->get('id');
+        $item = $this->getDoctrine()->getRepository('StockHavenBundle:item')->find($item_id);
+        $stores = $this->getDoctrine()->getRepository('StockHavenBundle:store')->findAll();
+        $currency = $this->getDoctrine()->getRepository('StockHavenBundle:currency')->findAll();
+        $types = $this->getDoctrine()->getRepository('StockHavenBundle:type')->findAll();
+
+        return $this->render('@StockHaven/edit/index.html.twig',array(
+            'item'=>$item,
+            'stores'=>$stores,
+            'currency'=>$currency,
+            'types'=>$types
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request)
+    {
+        $item_id = $request->query->get('item_id');
+        $item_name = $request->query->get('name');
+        $item_price = $request->query->get('price');
+        $item_currency = $request->query->get('currency');
+        $item_description = $request->query->get('description');
+        $item_type = $request->query->get('type');
+        $item_barcode = $request->query->get('barcode');
+
+        $item = $this->getDoctrine()->getRepository('StockHavenBundle:item')->find($item_id);
+
+        $barcode = $this->getDoctrine()->getRepository('StockHavenBundle:barcode')->findOneBy(array(
+            'barcode'=>$item_barcode
+        ));
+        $currency_tab = explode(" ",$item_currency);
+        $currency = $this->getDoctrine()->getRepository('StockHavenBundle:currency')->findOneBy(array(
+            'longName'=>$currency_tab[0]
+            ));
+        $type = $this->getDoctrine()->getRepository('StockHavenBundle:type')->findOneBy(array(
+            'name'=>$item_type
+        ));
+
+        $em = $this->getDoctrine()->getManager();
+
+        if($item_name != $item->getName() || $item_description != $item->getDescription() ||
+            $item_price != $item->getPrice() || $item_barcode != $item->getBarcodeId()->getBarcode() ||
+            $item_type != $item->getTypeId()->getName())
+        {
+            $em->persist($item);
+            if($item_name != $item->getName())
+            {
+                $item->setName($item_name);
+            }
+            if($item_description != $item->getDescription())
+            {
+                $item->setDescription($item_description);
+            }
+            if($item_price != $item->getPrice())
+            {
+                $item->setPrice($item_price);
+            }
+            if($item_barcode != $item->getBarcodeId()->getBarcode())
+            {
+                $em->persist($barcode);
+                $barcode->setBarcode($item_barcode);
+            }
+            if($item_type != $item->getTypeId()->getName())
+            {
+                $em->persist($type);
+                $type->setName($item_type);
+            }
+            if($currency_tab[0] != $item->getCurrencyId()->getLongName())
+            {
+                $em->persist($currency);
+                $currency->setLongName($currency_tab[0]);
+                $currency->setShortName($currency_tab[1]);
+                $currency->setSymbol($currency_tab[2]);
+            }
+        }
+        else
+        {
+            return $this->itemError("Item up to date !!!");
+        }
+
+        $em->flush();
+
+        return $this->itemSuccess("Item edited !!!");
+    }
+
+    /**
+     * @param $message
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function itemError($message)
     {
         $stores = $this->getDoctrine()->getRepository('StockHavenBundle:store')->findAll();
@@ -46,6 +146,10 @@ class ItemController extends Controller
         ));
     }
 
+    /**
+     * @param $message
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function itemSuccess($message)
     {
         $stores = $this->getDoctrine()->getRepository('StockHavenBundle:store')->findAll();
@@ -64,25 +168,38 @@ class ItemController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function deleteAction(Request $request)
     {
         $item_id = $request->query->get('id');
         $item_found = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findOneBy(array('id'=>$item_id));
-        if($item_found)
+        $items_stocks = $this->getDoctrine()->getRepository('StockHavenBundle:items_stocks')->findOneBy(array(
+            'itemId'=>$item_found
+        ));
+        if($item_found and !$items_stocks)
         {
             $barcode = $this->getDoctrine()->getRepository('StockHavenBundle:barcode')->find($item_found->getBarcodeId());
             $em=$this->getDoctrine()->getManager();
-            $em->remove($item_found);
+            $em->persist($item_found);
             $em->remove($barcode);
+            $em->remove($item_found);
+
             $em->flush();
         }
         else
         {
-            return $this->itemError("Item not found !!!");
+            return $this->itemError($item_found->getName()." is stored in a Stock !!!");
         }
         return $this->itemSuccess("Item deleted !!!");
     }
-    
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function createAction(Request $request)
     {
         $name = $request->query->get('name');
@@ -97,8 +214,8 @@ class ItemController extends Controller
 
         $barcode_repo = $this->getDoctrine()->getRepository('StockHavenBundle:barcode');
         $barcode_found = $barcode_repo->findOneBy(array(
-            'barcode'=>$barcode
-        ));
+        'barcode'=>$barcode
+    ));
         if($barcode_found)
         {
             return $this->itemError("Barcode already exist !!!");

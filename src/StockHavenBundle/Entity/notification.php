@@ -13,7 +13,7 @@ class notification
     private $id;
 
     /**
-     * @var int
+     * @var user
      */
     private $userId;
 
@@ -28,7 +28,7 @@ class notification
     private $createDate;
 
     /**
-     * @var int
+     * @var stock
      */
     private $stockId;
 
@@ -51,7 +51,7 @@ class notification
     /**
      * Set userId
      *
-     * @param integer $userId
+     * @param user $userId
      *
      * @return notification
      */
@@ -65,7 +65,7 @@ class notification
     /**
      * Get userId
      *
-     * @return int
+     * @return user
      */
     public function getUserId()
     {
@@ -123,7 +123,7 @@ class notification
     /**
      * Set stockId
      *
-     * @param integer $stockId
+     * @param stock $stockId
      *
      * @return notification
      */
@@ -137,7 +137,7 @@ class notification
     /**
      * Get stockId
      *
-     * @return int
+     * @return stock
      */
     public function getStockId()
     {
@@ -179,11 +179,11 @@ class notification
     /**
      * Add stockId
      *
-     * @param \StockHavenBundle\Entity\stock $stockId
+     * @param stock $stockId
      *
      * @return notification
      */
-    public function addStockId(\StockHavenBundle\Entity\stock $stockId)
+    public function addStockId(stock $stockId)
     {
         $this->stockId[] = $stockId;
 
@@ -193,9 +193,9 @@ class notification
     /**
      * Remove stockId
      *
-     * @param \StockHavenBundle\Entity\stock $stockId
+     * @param stock $stockId
      */
-    public function removeStockId(\StockHavenBundle\Entity\stock $stockId)
+    public function removeStockId(stock $stockId)
     {
         $this->stockId->removeElement($stockId);
     }
@@ -203,11 +203,11 @@ class notification
     /**
      * Add userId
      *
-     * @param \StockHavenBundle\Entity\user $userId
+     * @param user $userId
      *
      * @return notification
      */
-    public function addUserId(\StockHavenBundle\Entity\user $userId)
+    public function addUserId(user $userId)
     {
         $this->userId[] = $userId;
 
@@ -217,9 +217,9 @@ class notification
     /**
      * Remove userId
      *
-     * @param \StockHavenBundle\Entity\user $userId
+     * @param user $userId
      */
-    public function removeUserId(\StockHavenBundle\Entity\user $userId)
+    public function removeUserId(user $userId)
     {
         $this->userId->removeElement($userId);
     }

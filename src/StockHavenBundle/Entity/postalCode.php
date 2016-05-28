@@ -23,7 +23,7 @@ class postalCode
     private $region;
 
     /**
-     * @var int
+     * @var country
      */
     private $countryId;
 
@@ -89,7 +89,7 @@ class postalCode
     /**
      * Set countryId
      *
-     * @param integer $countryId
+     * @param country $countryId
      *
      * @return postalCode
      */
@@ -103,7 +103,7 @@ class postalCode
     /**
      * Get countryId
      *
-     * @return int
+     * @return country
      */
     public function getCountryId()
     {
