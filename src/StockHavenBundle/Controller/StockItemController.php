@@ -25,6 +25,20 @@ class StockItemController extends Controller
         ));
     }
 
+    public function errorSelectStock($message,$item)
+    {
+        $stocks = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->findAll();
+        $user = $this->get('user.services')->format_response($this->getUser());
+        $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
+
+        return $this->render('@StockHaven/stock-item/index.html.twig',array(
+            'stocks'=>$stocks,
+            'user'=>$user,
+            'item'=>$item,
+            'error'=>$message
+        ));
+    }
+
     public function successSelectStock($message,$item)
     {
         $stocks = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->findAll();
@@ -96,6 +110,7 @@ class StockItemController extends Controller
         {
             $em->persist($stock);
             $stock->removeStocksItems($items_stocks);
+            return $this->errorSelectStock("No Item in this Stock !!!",$item);
         }
         $em->flush();
 

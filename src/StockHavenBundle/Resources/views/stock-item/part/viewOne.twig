@@ -1,9 +1,26 @@
 <br>
 <div class="box">
+    {% if success is defined %}
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Success !</strong> {{ success }}
+        </div>
+    {% endif %}
+    {% if error is defined %}
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Error !</strong> {{ error }}
+        </div>
+    {% endif %}
     <div class="box-header with-border">
         <h3 class="box-title">Item</h3>
     </div>
     <!-- /.box-header -->
+
 
     <div class="box-body">
         <table class="table table-bordered">
@@ -33,7 +50,7 @@
             <tbody><tr>
                 <th>Name Stock</th>
                 <th>Owner</th>
-                <th>Number Item</th>
+                <th>Number of this Item in this Stock</th>
                 <th>Number User</th>
                 <th>Add Item in this Stock</th>
             </tr>
@@ -41,8 +58,10 @@
             {% for stock in stocks %}
                 {% set quantity=0 %}
                 {% if stock.users.contains(user) %}
-                    {% for item in stock.stocksItems %}
-                        {% set quantity = item.quantity+quantity %}
+                    {% for items in stock.stocksItems %}
+                        {% if items.itemId.id == item.id %}
+                            {% set quantity = items.quantity+quantity %}
+                        {% endif %}
                     {% endfor %}
                 <tr>
                     <td>{{ stock.name }}</td>
