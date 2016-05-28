@@ -89,4 +89,38 @@ class store
     {
         return $this->picture;
     }
+
+    /**
+     * Add store
+     *
+     * @param item $item
+     *
+     * @return item
+     */
+    public function addItem(item $item)
+    {
+        $this->items[] = $item;
+
+        return $this;
+    }
+
+    /**
+     * Remove store
+     *
+     * @param item $item
+     */
+    public function removeItem(item $item)
+    {
+        $this->items->removeElement($item);
+    }
+
+    /**
+     * Get stores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
 }

@@ -28,7 +28,7 @@
 <body class="hold-transition {{ skin_color_lte }} sidebar-mini fixed">
 <div class="wrapper">
     <header class="main-header">
-        <a href="{% block logo_href%}{% endblock %}" class="logo">
+        <a href="{% block logo_href%}{% endblock %}" onclick="{% block onclick %}{% endblock %}" class="logo">
             <span class="logo-mini">{% block logo_mini_lte %}{% endblock %}</span>
             <span class="logo-lg">{% block logo_lg_lte %}{% endblock %}</span>
         </a>

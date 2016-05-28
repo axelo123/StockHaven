@@ -9,7 +9,8 @@
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
 {% endblock %}
 {% block title_lte %}Stock Haven{% endblock %}
-{% block logo_href %}{% endblock %}
+{% block logo_href %}#{% endblock %}
+{% block onclick %}get_part_html_put_content(null,'{{ path_ajax }}/dashboard','content-content-lte');{% endblock %}
 {% block logo_mini_lte %}<b>SH</b>{% endblock %}
 {% block logo_lg_lte %}<b>Stock</b>Haven{% endblock %}
 {% block menu_rigth_lte %}

@@ -49,6 +49,7 @@ class StoreController extends Controller
     {
         $store = $request->query->get('id');
         $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store);
+
         if($store)
         {
             unlink($store->getPicture());
@@ -87,7 +88,7 @@ class StoreController extends Controller
         $ext = strtolower(substr(strrchr($fileName,"."),1));
 
         $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
-
+        
         if($store->getName() != $name || $picture )
         {
             if ( in_array($ext,$extensions_valid) )
