@@ -18,7 +18,11 @@
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{ stock.name }}</h3>
                                 </div>
+                                {% if stock.users.contains(user) %}
                                 <button type="button" class="stock btn-primary" onclick='click_with_id("{{ path('sh_item_add_stock') }}","{{ stock.id }}")' style="background-color: #605ca8;">
+                                {% else %}
+                                <button type="button" class="stock btn-primary" style="background-color: #605ca8;">
+                                {% endif %}
                                     Owner : {{ stock.userCreatorId.fullName }}<br>
                                     Numbers Items : {{ quantity }}<br>
                                     Numbers Users : {{ stock.users.count }}

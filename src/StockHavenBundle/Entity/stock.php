@@ -267,4 +267,37 @@ class stock
     {
         $this->itemsStocks->removeElement($itemsStocks);
     }
+
+    /**
+     * Add itemsStocks
+     *
+     * @param \StockHavenBundle\Entity\items_stocks $itemsStocks
+     * @return stock
+     */
+    public function addItemsStock(\StockHavenBundle\Entity\items_stocks $itemsStocks)
+    {
+        $this->itemsStocks[] = $itemsStocks;
+
+        return $this;
+    }
+
+    /**
+     * Remove itemsStocks
+     *
+     * @param \StockHavenBundle\Entity\items_stocks $itemsStocks
+     */
+    public function removeItemsStock(\StockHavenBundle\Entity\items_stocks $itemsStocks)
+    {
+        $this->itemsStocks->removeElement($itemsStocks);
+    }
+
+    /**
+     * Get itemsStocks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getItemsStocks()
+    {
+        return $this->itemsStocks;
+    }
 }

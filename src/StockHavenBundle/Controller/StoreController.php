@@ -3,6 +3,8 @@
 namespace StockHavenBundle\Controller;
 
 
+use StockHavenBundle\Entity\address;
+use StockHavenBundle\Entity\postalCode;
 use StockHavenBundle\Entity\stock;
 use StockHavenBundle\Entity\store;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -68,9 +70,11 @@ class StoreController extends Controller
     {
         $store_id = $request->query->get('id');
         $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
+        $countries = $this->getDoctrine()->getRepository('StockHavenBundle:country')->findAll();
 
         return $this->render('@StockHaven/edit/index.html.twig',array(
-            'store'=>$store
+            'store'=>$store,
+            'countries'=>$countries
         ));
         
     }
@@ -125,9 +129,7 @@ class StoreController extends Controller
         $deb=strpos($picture,'base64')+7;
         $picture = substr($picture,$deb);
         $ext = strtolower(substr(strrchr($fileName,"."),1));
-
-
-
+        
         $store_found = $this->getDoctrine()->getRepository('StockHavenBundle:store')->findOneBy(array('name'=>$name));
         if(!$store_found)
         {
@@ -150,5 +152,110 @@ class StoreController extends Controller
             return $this->storeError("Store Name already exist !!!");
         }
         return $this->storeSuccess("Success !!!");
+    }
+    
+    public function selectStoreAction(Request $request)
+    {
+        $store_id = $request->query->get('id');
+        $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
+        $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+        
+        return $this->render('@StockHaven/viewOneStore/index.html.twig',array(
+            'store'=>$store,
+            'address'=>$address
+        ));
+    }
+
+    public function addAddressAction(Request $request)
+    {
+        $store_id = $request->query->get('store_id');
+        $nb_box = $request->query->get('nb_box');
+        $street = $request->query->get('street');
+        $code = $request->query->get('code');
+        $region = $request->query->get('region');
+        $country = $request->query->get('country');
+        $country_tab = explode(" ",$country);
+        $em = $this->getDoctrine()->getManager();
+
+        $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
+
+        $country = $this->getDoctrine()->getRepository('StockHavenBundle:country')->findOneBy(array(
+            'name'=>$country_tab[0]
+        ));
+
+        $postalCode = $this->getDoctrine()->getRepository('StockHavenBundle:postalCode')->findOneBy(array(
+            'code'=>$code,
+            'region'=>$region,
+            'countryId'=>$country
+        ));
+
+        if(!$postalCode)
+        {
+            $postalCode = new postalCode();
+            $em->persist($postalCode);
+            $postalCode->setCode($code);
+            $postalCode->setRegion($region);
+            $postalCode->setCountryId($country);
+            $em->flush();
+        }
+        $address_found = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findOneBy(array(
+            'street'=>$street,
+            'nbBox'=>$nb_box,
+
+        ));
+
+        if(!$address_found)
+        {
+            $address = new address();
+            $em->persist($address);
+            $address->setNbBox($nb_box);
+            $address->setStreet($street);
+            $address->setPostalCodeId($postalCode);
+            $address->setStoreId($store);
+            $em->flush();
+        }
+        else
+        {
+            return $this->selectStoreError("This Address already exist !!!",$store_id);
+        }
+        return $this->selectStoreSuccess("Address add in this Store !!!",$store_id);
+
+    }
+    public function selectStoreSuccess($message,$store_id)
+    {
+        $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
+        $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+
+        return $this->render('@StockHaven/viewOneStore/index.html.twig',array(
+            'store'=>$store,
+            'address'=>$address,
+            'success'=>$message
+        ));
+    }
+
+    public function selectStoreError($message,$store_id)
+    {
+        $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
+        $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+
+        return $this->render('@StockHaven/viewOneStore/index.html.twig',array(
+            'store'=>$store,
+            'address'=>$address,
+            'error'=>$message
+        ));
+    }
+
+    public function viewAddressAction(Request $request)
+    {
+        $store_id = $request->query->get('id');
+        $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
+        $countries = $this->getDoctrine()->getRepository('StockHavenBundle:country')->findAll();
+        $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+
+        return $this->render('@StockHaven/addAddress/index.html.twig',array(
+            'store'=>$store,
+            'countries'=>$countries,
+            'address'=>$address
+        ));
     }
 }

@@ -15,12 +15,13 @@
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{ store.name }}</h3>
                                 </div>
-                                <button type="button" class="stock">
+                                <button type="button" onclick='click_with_id("{{ path('sh_store_view_one') }}","{{ store.id }}")' class="stock">
                                     <img src='{{ asset(store.picture) }}' width="145" height="145" >
                                 </button>
                                 {% if user.isSuperUser %}
-                                <button type="button" onclick='click_with_id("{{ path('sh_store_edit_view') }}","{{ store.id }}")' class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                                <button type="button" onclick='click_with_id("{{ path('sh_store_delete') }}","{{ store.id }}")' class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    <button type="button" onclick='click_with_id("{{ path('sh_store_edit_view') }}","{{ store.id }}")' class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                    <button type="button" onclick='click_with_id("{{ path('sh_store_delete') }}","{{ store.id }}")' class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    <button type="button" onclick='click_with_id("{{ path('sh_store_view_address') }}","{{ store.id }}")' class="btn btn-primary"><i class="fa fa-map-marker"></i></button>
                                 {% endif %}
                             </div>
                         </div>

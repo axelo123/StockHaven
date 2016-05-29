@@ -23,7 +23,6 @@ StockHavenBundle\Entity\address:
             joinColumn:
                 name: postal_code_id
                 referencedColumnName: id
-    oneToOne:
         storeId:
             targetEntity: store
             inversedBy: id

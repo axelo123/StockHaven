@@ -22,6 +22,10 @@ sh_search:
 # Création d'élément dans la db
 #
 
+sh_dev_axel2:
+    path:     /dev/axel/country
+    defaults: { _controller: StockHavenBundle:DevAxel:country }
+
 sh_dev_axel:
     path:     /dev/axel/currency
     defaults: {_controller: StockHavenBundle:DevAxel:currency }
@@ -149,6 +153,18 @@ sh_item:
 #
 # Gestion de store
 #
+
+sh_store_view_address:
+    path:     /ajax/store/view/address
+    defaults: { _controller: StockHavenBundle:Store:viewAddress }
+
+sh_store_add_address:
+    path:     /ajax/store/add/address
+    defaults: { _controller: StockHavenBundle:Store:addAddress }
+
+sh_store_view_one:
+    path:     /ajax/store/view/one
+    defaults: { _controller: StockHavenBundle:Store:selectStore }
 
 sh_store_edit_view:
     path:     /ajax/store/edit/view

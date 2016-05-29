@@ -15,8 +15,8 @@ StockHavenBundle\Entity\store:
         picture:
             type: string
             length: 255
-    manyToMany:
-        items:
-            targetEntity: item
-            mappedBy: stores
+    #manyToMany:
+    #    items:
+    #        targetEntity: item
+    #        mappedBy: stores
     lifecycleCallbacks: {  }
