@@ -39,7 +39,7 @@ sh_site_part_project:
     defaults: { _controller: StockHavenBundle:Site:projects, slug: 1 }
 
 #
-# cooonection , déconnection, enregistrement
+# conection , déconnection, enregistrement
 #
 
 sh_connection:
@@ -126,6 +126,7 @@ sh_stock_remove_item_in_stock:
 sh_item_add_stock:
     path:     /ajax/stock/addStock
     defaults: { _controller: StockHavenBundle:StockItem:addStock }
+
 #
 # Gestion d'item
 #
@@ -154,6 +155,9 @@ sh_item:
 # Gestion de store
 #
 
+sh_store_remove_address:
+    path:     /ajax/store/remove/address
+    defaults: { _controller: StockHavenBundle:Store:removeAddress }
 sh_store_view_address:
     path:     /ajax/store/view/address
     defaults: { _controller: StockHavenBundle:Store:viewAddress }

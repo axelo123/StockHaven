@@ -31,6 +31,7 @@
                         <th>Number Postal Code</th>
                         <th>Region</th>
                         <th>Country</th>
+                        <th>Remove Address</th>
                     </tr>
                     <tr>
                         <td>{{ oneAddress.nbBox }}</td>
@@ -38,6 +39,12 @@
                         <td>{{ oneAddress.postalCodeId.code }}</td>
                         <td>{{ oneAddress.postalCodeId.region }}</td>
                         <td>{{ oneAddress.postalCodeId.countryId.name }}</td>
+                        <td>
+                            <button type="button" onclick='click_with_two_id("{{ path('sh_store_remove_address') }}","{{ oneAddress.id }}","{{ store.id }}")' class="btn btn-danger">
+                                <i class="fa fa-trash">
+                                </i>
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
                 {% endif %}

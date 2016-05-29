@@ -10,7 +10,7 @@ StockHavenBundle\Entity\address:
                 strategy: AUTO
     fields:
         nbBox:
-            type: integer
+            type: string
             nullable: true
             column: nb_box
         street:

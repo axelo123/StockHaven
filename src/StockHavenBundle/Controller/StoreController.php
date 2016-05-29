@@ -5,7 +5,6 @@ namespace StockHavenBundle\Controller;
 
 use StockHavenBundle\Entity\address;
 use StockHavenBundle\Entity\postalCode;
-use StockHavenBundle\Entity\stock;
 use StockHavenBundle\Entity\store;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -256,6 +255,29 @@ class StoreController extends Controller
             'store'=>$store,
             'countries'=>$countries,
             'address'=>$address
+        ));
+    }
+    
+    public function removeAddressAction(Request $request)
+    {
+        $address_id = $request->query->get('id');
+        $store_id = $request->query->get('id2');
+        
+        $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->find($address_id);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($address);
+        $em->flush();
+        
+        $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
+        $countries = $this->getDoctrine()->getRepository('StockHavenBundle:country')->findAll();
+        $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+
+        return $this->render('@StockHaven/addAddress/index.html.twig',array(
+            'store'=>$store,
+            'countries'=>$countries,
+            'address'=>$address,
+            'success'=>"Address removed !!!"
         ));
     }
 }

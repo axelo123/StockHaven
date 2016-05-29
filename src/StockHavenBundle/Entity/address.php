@@ -13,7 +13,7 @@ class address
     private $id;
 
     /**
-     * @var int
+     * @var string
      */
     private $nbBox;
 
@@ -46,7 +46,7 @@ class address
     /**
      * Set nbBox
      *
-     * @param integer $nbBox
+     * @param string $nbBox
      *
      * @return address
      */
@@ -60,7 +60,7 @@ class address
     /**
      * Get nbBox
      *
-     * @return int
+     * @return string
      */
     public function getNbBox()
     {

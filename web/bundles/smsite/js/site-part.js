@@ -55,6 +55,11 @@ function click_with_item_stock(path,item,stock)
     post_form(path,data);
 }
 
+function click_with_two_id(path,id,id2)
+{
+    var data = {'id':id,'id2':id2};
+    post_form(path,data);
+}
 
 function post_form_with_image(path,data)
 {
