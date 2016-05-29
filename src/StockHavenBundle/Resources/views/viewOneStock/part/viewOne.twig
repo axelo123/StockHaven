@@ -50,14 +50,7 @@
     </div>
     <div class="box-body">
         <table class="table table-bordered">
-            {% for item in items %}
-                {% set quantity = 0 %}
-                {% for st in item.itemsStocks %}
-                {% if st.stockId.id == stock.id %}
-                    {% set quantity = quantity+st.quantity %}
-                {% endif %}
-            {% endfor %}
-                {% if quantity > 0 %}
+
             <tbody>
                 <tr>
                     <th>Name Item</th>
@@ -68,27 +61,35 @@
                     <th>Type</th>
                     <th>Add/remove Item</th>
                 </tr>
-                <tr>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.price }}{{ item.currencyId.symbol }}</td>
-                    <td>{% for store in item.stores %}{{ store.name }} {% endfor %}</td>
-                    <td>{{ quantity }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.typeId.name }}</td>
-                    <td>
-                        <button type="button" onclick='click_with_item_stock("{{ path('sh_stock_add_stock_in_item') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-success">
-                            <i class="fa fa-plus">
-                            </i>
-                        </button>
-                        <button type="button" onclick='click_with_item_stock("{{ path('sh_stock_remove_stock_in_item') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-danger">
-                            <i class="fa fa-minus">
-                            </i>
-                        </button>
-                    </td>
-                </tr>
+                {% for item in items %}
+                    {% set quantity = 0 %}
+                    {% for st in item.itemsStocks %}
+                        {% if st.stockId.id == stock.id %}
+                            {% set quantity = quantity+st.quantity %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if quantity > 0 %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.price }}{{ item.currencyId.symbol }}</td>
+                            <td>{% for store in item.stores %}{{ store.name }} {% endfor %}</td>
+                            <td>{{ quantity }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.typeId.name }}</td>
+                            <td>
+                                <button type="button" onclick='click_with_item_stock("{{ path('sh_stock_add_stock_in_item') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-success">
+                                    <i class="fa fa-plus">
+                                    </i>
+                                </button>
+                                <button type="button" onclick='click_with_item_stock("{{ path('sh_stock_remove_stock_in_item') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-danger">
+                                    <i class="fa fa-minus">
+                                    </i>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
             </tbody>
-            {% endif %}
-            {% endfor %}
         </table>
     </div>
 
