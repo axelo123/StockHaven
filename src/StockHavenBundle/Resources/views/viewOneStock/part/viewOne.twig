@@ -19,7 +19,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">Stock</h3>
     </div>
-    {% set quantity=0 %}
+    {% set quantity = 0 %}
     {% for items in stock.stocksItems %}
         {% set quantity = items.quantity+quantity %}
     {% endfor %}
@@ -51,6 +51,13 @@
     <div class="box-body">
         <table class="table table-bordered">
             {% for item in items %}
+                {% set quantity = 0 %}
+                {% for st in item.itemsStocks %}
+                {% if st.stockId.id == stock.id %}
+                    {% set quantity = quantity+st.quantity %}
+                {% endif %}
+            {% endfor %}
+                {% if quantity > 0 %}
             <tbody>
                 <tr>
                     <th>Name Item</th>
@@ -65,13 +72,7 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.price }}</td>
                     <td>{% for store in item.stores %}{{ store.name }} {% endfor %}</td>
-                    <td>
-                        {% for st in item.itemsStocks %}
-                            {% if st.stockId.id == stock.id %}
-                                {{ st.quantity }}
-                            {% endif %}
-                        {% endfor %}
-                    </td>
+                    <td>{{ quantity }}</td>
                     <td>{{ item.description }}</td>
                     <td>{{ item.typeId.name }}</td>
                     <td>
@@ -86,6 +87,7 @@
                     </td>
                 </tr>
             </tbody>
+            {% endif %}
             {% endfor %}
         </table>
     </div>

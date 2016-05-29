@@ -67,7 +67,7 @@
                 <tr>
                     <td>{{ stock.name }}</td>
                     <td>{{ stock.userCreatorId.name }}</td>
-                    <td>{{ quantity }}</td>
+                    <td>{% if quantity == 0 %}0{% else %}{{ quantity }}{% endif %}</td>
                     <td>{{ stock.users.count }}</td>
                     <td><button type="button" onclick='click_with_item_stock("{{ path('sh_stock_add_item_in_stock') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-success">
                             <i class="fa fa-plus">
