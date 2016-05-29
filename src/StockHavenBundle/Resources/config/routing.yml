@@ -88,6 +88,17 @@ sh_stock_add_user:
     path:     /ajax/stock/addUser
     defaults: { _controller: StockHavenBundle:Stock:addUser }
 
+sh_stock_remove_user:
+    path:     /ajax/stock/removeUser
+    defaults: {_controller: StockHavenBundle:Stock:removeUser }
+sh_stock:
+    path:     /ajax/stock
+    defaults: { _controller: StockHavenBundle:Stock:stock }
+
+#
+# Gestion des views item_stock et stock_item
+#
+
 sh_stock_add_item:
     path:     /ajax/stock/addItem
     defaults: { _controller: StockHavenBundle:StockItem:addItem }
@@ -96,17 +107,21 @@ sh_stock_add_item_in_stock:
     path:     /ajax/stock/addItemInStock
     defaults: { _controller: StockHavenBundle:StockItem:addItemInStock }
 
+sh_stock_add_stock_in_item:
+    path:     /ajax/stock/addStockInItem
+    defaults: { _controller:  StockHavenBundle:StockItem:addStockInItem }
+
+sh_stock_remove_stock_in_item:
+    path:     /ajax/stock/removeItemInStock
+    defaults: { _controller: StockHavenBundle:StockItem:removeStockInItems }
+
 sh_stock_remove_item_in_stock:
     path:     /ajax/stock/removeItemInStock
     defaults: { _controller: StockHavenBundle:StockItem:removeItemInStock }
 
-sh_stock_remove_user:
-    path:     /ajax/stock/removeUser
-    defaults: {_controller: StockHavenBundle:Stock:removeUser }
-sh_stock:
-    path:     /ajax/stock
-    defaults: { _controller: StockHavenBundle:Stock:stock }
-
+sh_item_add_stock:
+    path:     /ajax/stock/addStock
+    defaults: { _controller: StockHavenBundle:StockItem:addStock }
 #
 # Gestion d'item
 #

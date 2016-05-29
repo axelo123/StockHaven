@@ -1,21 +1,21 @@
 <br>
+{% if success is defined %}
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Success !</strong> {{ success }}
+    </div>
+{% endif %}
+{% if error is defined %}
+    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Error !</strong> {{ error }}
+    </div>
+{% endif %}
 <div class="box">
-    {% if success is defined %}
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>Success !</strong> {{ success }}
-        </div>
-    {% endif %}
-    {% if error is defined %}
-        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>Error !</strong> {{ error }}
-        </div>
-    {% endif %}
     <div class="box-header with-border">
         <h3 class="box-title">Item</h3>
     </div>
@@ -40,11 +40,12 @@
                 </tr>
             </tbody></table>
     </div>
+</div>
+    <!-- /.box-header -->
+<div class="box">
     <div class="box-header with-border">
         <h3 class="box-title">Stock</h3>
     </div>
-    <!-- /.box-header -->
-
     <div class="box-body">
         <table class="table table-bordered">
             <tbody><tr>
