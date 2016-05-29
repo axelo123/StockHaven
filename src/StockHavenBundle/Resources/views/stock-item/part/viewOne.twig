@@ -33,7 +33,7 @@
             </tr>
                 <tr>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.price }}</td>
+                    <td>{{ item.price }}{{ item.currencyId.symbol }}</td>
                     <td>{% for store in item.stores %}{{ store.name }} {% endfor %}</td>
                     <td>{{ item.description }}</td>
                     <td>{{ item.typeId.name }}</td>

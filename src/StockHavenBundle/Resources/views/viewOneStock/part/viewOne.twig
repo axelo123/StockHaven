@@ -70,7 +70,7 @@
                 </tr>
                 <tr>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.price }}</td>
+                    <td>{{ item.price }}{{ item.currencyId.symbol }}</td>
                     <td>{% for store in item.stores %}{{ store.name }} {% endfor %}</td>
                     <td>{{ quantity }}</td>
                     <td>{{ item.description }}</td>
