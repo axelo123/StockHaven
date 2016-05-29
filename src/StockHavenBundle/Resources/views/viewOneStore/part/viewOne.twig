@@ -21,38 +21,37 @@
     </div>
     <div class="box-body">
         <table class="table table-bordered">
-
-            {% for oneAddress in address %}
-                {% if oneAddress.storeId == store %}
-                    <tbody>
-                    <tr>
-                        <th>nb box</th>
-                        <th>Street</th>
-                        <th>Number Postal Code</th>
-                        <th>Region</th>
-                        <th>Country</th>
-                        {% if user.isSuperUser %}
-                        <th>Remove Address</th>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        <td>{{ oneAddress.nbBox }}</td>
-                        <td>{{ oneAddress.street }}</td>
-                        <td>{{ oneAddress.postalCodeId.code }}</td>
-                        <td>{{ oneAddress.postalCodeId.region }}</td>
-                        <td>{{ oneAddress.postalCodeId.countryId.name }}</td>
-                        {% if user.isSuperUser %}
-                        <td>
-                            <button type="button" onclick='click_with_two_id("{{ path('sh_store_remove_address') }}","{{ oneAddress.id }}","{{ store.id }}")' class="btn btn-danger">
-                                <i class="fa fa-trash">
-                                </i>
-                            </button>
-                        </td>
-                        {% endif %}
-                    </tr>
-                    </tbody>
-                {% endif %}
-            {% endfor %}
+            <tbody>
+                <tr>
+                    <th>nb box</th>
+                    <th>Street</th>
+                    <th>Number Postal Code</th>
+                    <th>Region</th>
+                    <th>Country</th>
+                    {% if user.isSuperUser %}
+                    <th>Remove Address</th>
+                    {% endif %}
+                </tr>
+                {% for oneAddress in address %}
+                    {% if oneAddress.storeId == store %}
+                        <tr>
+                            <td>{{ oneAddress.nbBox }}</td>
+                            <td>{{ oneAddress.street }}</td>
+                            <td>{{ oneAddress.postalCodeId.code }}</td>
+                            <td>{{ oneAddress.postalCodeId.region }}</td>
+                            <td>{{ oneAddress.postalCodeId.countryId.name }}</td>
+                            {% if user.isSuperUser %}
+                                <td>
+                                    <button type="button" onclick='click_with_two_id("{{ path('sh_store_remove_address') }}","{{ oneAddress.id }}","{{ store.id }}")' class="btn btn-danger">
+                                        <i class="fa fa-trash">
+                                        </i>
+                                    </button>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 </div>

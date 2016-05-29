@@ -50,7 +50,14 @@
     </div>
     <div class="box-body">
         <table class="table table-bordered">
-
+            {% for item in items %}
+                {% set quantity = 0 %}
+                {% for st in item.itemsStocks %}
+                {% if st.stockId.id == stock.id %}
+                    {% set quantity = quantity+st.quantity %}
+                {% endif %}
+            {% endfor %}
+                {% if quantity > 0 %}
             <tbody>
                 <tr>
                     <th>Name Item</th>
@@ -59,16 +66,8 @@
                     <th>Number this Item in this Stock</th>
                     <th>Description</th>
                     <th>Type</th>
-                    <th>Add/Remove Item</th>
+                    <th>Add/remove Item</th>
                 </tr>
-                {% for item in items %}
-                {% set quantity = 0 %}
-                {% for st in item.itemsStocks %}
-                    {% if st.stockId.id == stock.id %}
-                        {% set quantity = quantity+st.quantity %}
-                    {% endif %}
-                {% endfor %}
-                {% if quantity > 0 %}
                 <tr>
                     <td>{{ item.name }}</td>
                     <td>{{ item.price }}{{ item.currencyId.symbol }}</td>
