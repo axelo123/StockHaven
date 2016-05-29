@@ -158,10 +158,13 @@ class StoreController extends Controller
         $store_id = $request->query->get('id');
         $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
         $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+        $user = $this->get('user.services')->format_response($this->getUser());
+        $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
         
         return $this->render('@StockHaven/viewOneStore/index.html.twig',array(
             'store'=>$store,
-            'address'=>$address
+            'address'=>$address,
+            'user'=>$user
         ));
     }
 
@@ -224,11 +227,14 @@ class StoreController extends Controller
     {
         $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
         $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+        $user = $this->get('user.services')->format_response($this->getUser());
+        $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
 
         return $this->render('@StockHaven/viewOneStore/index.html.twig',array(
             'store'=>$store,
             'address'=>$address,
-            'success'=>$message
+            'success'=>$message,
+            'user'=>$user
         ));
     }
 
@@ -236,11 +242,14 @@ class StoreController extends Controller
     {
         $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
         $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+        $user = $this->get('user.services')->format_response($this->getUser());
+        $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
 
         return $this->render('@StockHaven/viewOneStore/index.html.twig',array(
             'store'=>$store,
             'address'=>$address,
-            'error'=>$message
+            'error'=>$message,
+            'user'=>$user
         ));
     }
 
@@ -250,11 +259,14 @@ class StoreController extends Controller
         $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
         $countries = $this->getDoctrine()->getRepository('StockHavenBundle:country')->findAll();
         $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+        $user = $this->get('user.services')->format_response($this->getUser());
+        $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
 
         return $this->render('@StockHaven/addAddress/index.html.twig',array(
             'store'=>$store,
             'countries'=>$countries,
-            'address'=>$address
+            'address'=>$address,
+            'user'=>$user
         ));
     }
     
@@ -272,12 +284,15 @@ class StoreController extends Controller
         $store = $this->getDoctrine()->getRepository('StockHavenBundle:store')->find($store_id);
         $countries = $this->getDoctrine()->getRepository('StockHavenBundle:country')->findAll();
         $address = $this->getDoctrine()->getRepository('StockHavenBundle:address')->findAll();
+        $user = $this->get('user.services')->format_response($this->getUser());
+        $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
 
         return $this->render('@StockHaven/addAddress/index.html.twig',array(
             'store'=>$store,
             'countries'=>$countries,
             'address'=>$address,
-            'success'=>"Address removed !!!"
+            'success'=>"Address removed !!!",
+            'user'=>$user
         ));
     }
 }
