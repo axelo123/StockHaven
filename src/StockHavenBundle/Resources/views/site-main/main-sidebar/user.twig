@@ -7,7 +7,7 @@
     </div>
     <div class="col-xs-12">
         <!-- sidebar-form -->
-        <form action="#" id="search"  class="sidebar-open">
+        <form action="#" id="search"  class="sidebar-form">
             <div class="input-group">
                 <input type="text" id="q" name="elem" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
@@ -22,7 +22,7 @@
     $('#search').submit(function(e) {
         e.preventDefault();
         post_form('{{ path('sh_search') }}',$(this).serialize());
-        document.getElementById('search').reset();
+        document.getElementById('q').reset();
     });
 
 </script>
