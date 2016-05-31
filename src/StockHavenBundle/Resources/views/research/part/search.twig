@@ -12,14 +12,18 @@
                     <div class="row">
                         <div class="col-sm-4 col-md-2">
                             <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">{{ stock.name }}</h3>
-                                </div>
-                                <button type="button" class="stock btn-primary" style="background-color: #605ca8;">
-                                    Owner : {{ stock.userCreatorId.fullName }}<br>
-                                    Numbers Items : 0 <br>
-                                    Numbers Users : {{ stock.users.count }}
-                                </button>
+                                 <div class="panel-heading">
+                                     <h3 class="panel-title">{{ stock.name }}</h3>
+                                 </div>
+                                 {% if stock.users.contains(user) %}
+                                     <button type="button" class="stock btn-primary" onclick='click_with_id("{{ path('sh_item_add_stock') }}","{{ stock.id }}")' style="background-color: #605ca8;">
+                                 {% else %}
+                                     <button type="button" class="stock btn-primary" style="background-color: #605ca8;">
+                                 {% endif %}
+                                 Owner : {{ stock.userCreatorId.fullName }}<br>
+                                 Numbers Items : 0 <br>
+                                 Numbers Users : {{ stock.users.count }}
+                                 </button>
 
                                 {% if not stock.users.contains(user) %}
                                     <button type="button" onclick='click_with_id("{{ path('sh_stock_add_user') }}","{{ stock.id }}")' class="btn btn-success"><i class="fa fa-user-plus"></i></button>
