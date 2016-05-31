@@ -25,18 +25,14 @@
     <div class="box-body">
         <table class="table table-bordered">
             <tbody><tr>
-                <th>Name Item</th>
-                <th>Price</th>
-                <th>Store</th>
-                <th>Description</th>
-                <th>Type</th>
+                <th class="col-xs-1 col-sm-2 col-md-3">Name Item</th>
+                <th class="col-xs-1 col-sm-2 col-md-3">Price</th>
+                <th class="col-xs-1 col-sm-2 col-md-3">Type</th>
             </tr>
                 <tr>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.price }}{{ item.currencyId.symbol }}</td>
-                    <td>{% for store in item.stores %}{{ store.name }} {% endfor %}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.typeId.name }}</td>
+                    <td class="col-xs-1 col-sm-2 col-md-3">{{ item.name }}</td>
+                    <td class="col-xs-1 col-sm-2 col-md-3">{{ item.price }}{{ item.currencyId.symbol }}</td>
+                    <td class="col-xs-1 col-sm-2 col-md-3">{{ item.typeId.name }}</td>
                 </tr>
             </tbody></table>
     </div>
@@ -49,11 +45,10 @@
     <div class="box-body">
         <table class="table table-bordered">
             <tbody><tr>
-                <th>Name Stock</th>
-                <th>Owner</th>
-                <th>Number of this Item in this Stock</th>
-                <th>Number User</th>
-                <th>Add/Remove Item in this Stock</th>
+                <th class="col-xs-1 col-sm-2 col-md-3">Name Stock</th>
+                <th class="col-xs-1 col-sm-2 col-md-3">Owner</th>
+                <th class="col-xs-1 col-sm-2 col-md-3">Number of this Item in this Stock</th>
+                <th class="col-xs-1 col-sm-2 col-md-3">Add / Remove Item</th>
             </tr>
 
             {% for stock in stocks %}
@@ -65,11 +60,11 @@
                         {% endif %}
                     {% endfor %}
                 <tr>
-                    <td>{{ stock.name }}</td>
-                    <td>{{ stock.userCreatorId.name }}</td>
-                    <td>{% if quantity == 0 %}0{% else %}{{ quantity }}{% endif %}</td>
-                    <td>{{ stock.users.count }}</td>
-                    <td><button type="button" onclick='click_with_item_stock("{{ path('sh_stock_add_item_in_stock') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-success">
+                    <td class="col-xs-1 col-sm-2 col-md-3">{{ stock.name }}</td>
+                    <td class="col-xs-1 col-sm-2 col-md-3">{{ stock.userCreatorId.name }}</td>
+                    <td class="col-xs-1 col-sm-2 col-md-3">{% if quantity == 0 %}0{% else %}{{ quantity }}{% endif %}</td>
+                    <td class="col-xs-1 col-sm-2 col-md-3">
+                        <button type="button" onclick='click_with_item_stock("{{ path('sh_stock_add_item_in_stock') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-success">
                             <i class="fa fa-plus">
                             </i>
                         </button>
@@ -83,15 +78,5 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
-    <!-- /.box-body -->
-    <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
     </div>
 </div>

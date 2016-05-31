@@ -27,16 +27,18 @@
                                     Numbers Items : {{ quantity }}<br>
                                     Numbers Users : {{ stock.users.count }}
                                 </button>
-                                {% if not stock.users.contains(user) %}
-                                <button type="button" onclick='click_with_id("{{ path('sh_stock_add_user') }}","{{ stock.id }}")' class="btn btn-success"><i class="fa fa-user-plus"></i></button>
-                                {% endif %}
-                                {% if stock.users.contains(user) and stock.userCreatorId.id != user.id %}
-                                <button type="button" onclick='click_with_id("{{ path('sh_stock_remove_user') }}","{{ stock.id }}")' class="btn btn-danger"><i class="fa fa-user-times"></i></button>
-                                {% endif %}
-                                {% if stock.userCreatorId.id == user.id %}
-                                <button type="button" id="update" onclick='click_with_id("{{ path('sh_stock_edit_view') }}","{{ stock.id }}")' class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                                <button type="submit" id="delete" onclick='click_with_id("{{ path('sh_stock_delete') }}","{{ stock.id }}")' class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                {% endif %}
+                                <div class="btn-group">
+                                    {% if not stock.users.contains(user) %}
+                                    <button type="button" onclick='click_with_id("{{ path('sh_stock_add_user') }}","{{ stock.id }}")' class="btn btn-success"><i class="fa fa-user-plus"></i></button>
+                                    {% endif %}
+                                    {% if stock.users.contains(user) and stock.userCreatorId.id != user.id %}
+                                    <button type="button" onclick='click_with_id("{{ path('sh_stock_remove_user') }}","{{ stock.id }}")' class="btn btn-danger"><i class="fa fa-user-times"></i></button>
+                                    {% endif %}
+                                    {% if stock.userCreatorId.id == user.id %}
+                                    <button type="button" id="update" onclick='click_with_id("{{ path('sh_stock_edit_view') }}","{{ stock.id }}")' class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                    <button type="submit" id="delete" onclick='click_with_id("{{ path('sh_stock_delete') }}","{{ stock.id }}")' class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                         {% endfor %}

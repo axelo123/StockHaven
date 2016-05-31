@@ -24,11 +24,13 @@
                                     Store Found : {{ item.stores.count }}<br>
                                     Price : {{ item.price }} {{ item.currencyId.symbol }}
                                 </button>
-                                <button type="button" onclick='click_with_id("{{ path('sh_stock_add_item') }}","{{ item.id }}")' class="btn btn-success"><i class="fa fa-plus"></i></button>
-                                {% if user.isSuperUser %}
-                                <button type="button" onclick='click_with_id("{{ path('sh_item_edit_view') }}","{{ item.id }}")' class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                                <button type="button" onclick='click_with_id("{{ path('sh_item_delete') }}","{{ item.id }}")' class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                {% endif %}
+                                <div class="btn-group">
+                                    <button type="button" onclick='click_with_id("{{ path('sh_stock_add_item') }}","{{ item.id }}")' class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                    {% if user.isSuperUser %}
+                                    <button type="button" onclick='click_with_id("{{ path('sh_item_edit_view') }}","{{ item.id }}")' class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                    <button type="button" onclick='click_with_id("{{ path('sh_item_delete') }}","{{ item.id }}")' class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                         {% if foo%6 == 0 %}

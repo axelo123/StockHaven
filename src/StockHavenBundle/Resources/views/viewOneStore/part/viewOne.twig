@@ -23,25 +23,21 @@
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <th>nb box</th>
-                    <th>Street</th>
-                    <th>Number Postal Code</th>
-                    <th>Region</th>
-                    <th>Country</th>
+                    <th class="col-xs-1 col-sm-2 col-md-3">Street</th>
+                    <th class="col-xs-1 col-sm-2 col-md-3">Region</th>
+                    <th class="col-xs-1 col-sm-2 col-md-3">Country</th>
                     {% if user.isSuperUser %}
-                    <th>Remove Address</th>
+                    <th class="col-xs-1 col-sm-2 col-md-3">Remove Address</th>
                     {% endif %}
                 </tr>
                 {% for oneAddress in address %}
                     {% if oneAddress.storeId == store %}
                         <tr>
-                            <td>{{ oneAddress.nbBox }}</td>
-                            <td>{{ oneAddress.street }}</td>
-                            <td>{{ oneAddress.postalCodeId.code }}</td>
-                            <td>{{ oneAddress.postalCodeId.region }}</td>
-                            <td>{{ oneAddress.postalCodeId.countryId.name }}</td>
+                            <td class="col-xs-1 col-sm-2 col-md-3">{{ oneAddress.nbBox }} {{ oneAddress.street }}</td>
+                            <td class="col-xs-1 col-sm-2 col-md-3">{{ oneAddress.postalCodeId.code }} {{ oneAddress.postalCodeId.region }}</td>
+                            <td class="col-xs-1 col-sm-2 col-md-3">{{ oneAddress.postalCodeId.countryId.name }}</td>
                             {% if user.isSuperUser %}
-                                <td>
+                                <td class="col-xs-1 col-sm-2 col-md-3">
                                     <button type="button" onclick='click_with_two_id("{{ path('sh_store_remove_address') }}","{{ oneAddress.id }}","{{ store.id }}")' class="btn btn-danger">
                                         <i class="fa fa-trash">
                                         </i>

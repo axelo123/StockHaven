@@ -50,16 +50,12 @@
     </div>
     <div class="box-body">
         <table class="table table-bordered">
-
             <tbody>
                 <tr>
-                    <th>Name Item</th>
-                    <th>Price</th>
-                    <th>Store</th>
-                    <th>Number this Item in this Stock</th>
-                    <th>Description</th>
-                    <th>Type</th>
-                    <th>Add/remove Item</th>
+                    <th class="col-xs-1 col-sm-2 col-md-3">Name Item</th>
+                    <th class="col-xs-1 col-sm-2 col-md-3">Price</th>
+                    <th class="col-xs-1 col-sm-2 col-md-3">Number Item</th>
+                    <th class="col-xs-1 col-sm-2 col-md-3">Add / remove Item</th>
                 </tr>
                 {% for item in items %}
                     {% set quantity = 0 %}
@@ -70,13 +66,10 @@
                     {% endfor %}
                     {% if quantity > 0 %}
                         <tr>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.price }}{{ item.currencyId.symbol }}</td>
-                            <td>{% for store in item.stores %}{{ store.name }} {% endfor %}</td>
-                            <td>{{ quantity }}</td>
-                            <td>{{ item.description }}</td>
-                            <td>{{ item.typeId.name }}</td>
-                            <td>
+                            <td class="col-xs-1 col-sm-2 col-md-3">{{ item.name }}</td>
+                            <td class="col-xs-1 col-sm-2 col-md-3">{{ item.price }}{{ item.currencyId.symbol }}</td>
+                            <td class="col-xs-1 col-sm-2 col-md-3">{{ quantity }}</td>
+                            <td class="col-xs-1 col-sm-2 col-md-3">
                                 <button type="button" onclick='click_with_item_stock("{{ path('sh_stock_add_stock_in_item') }}","{{ item.id }}","{{ stock.id }}")' class="btn btn-success">
                                     <i class="fa fa-plus">
                                     </i>
@@ -91,16 +84,5 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-
-    <!-- /.box-body -->
-    <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
     </div>
 </div>
