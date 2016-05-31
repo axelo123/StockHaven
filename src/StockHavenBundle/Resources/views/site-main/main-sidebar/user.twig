@@ -9,9 +9,10 @@
         <form id="search" action="#" class="sidebar-form">
             <div class="input-group">
                 <input type="text" id="search" name="search" class="form-control" placeholder="Search...">
-
+                <span class="input-group-btn">
                     <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                     </button>
+                </span>
             </div>
         </form>
     </div>
@@ -20,7 +21,7 @@
     $('#search').submit(function(e) {
         e.preventDefault();
         post_form('{{ path('sh_search') }}',$(this).serialize());
-        document.getElementById('search').reset();
+        //document.getElementById('search').reset();
     });
 
 </script>
