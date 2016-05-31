@@ -42,7 +42,7 @@ class SiteController extends Controller
 
     public function searchAction(Request $request)
     {
-        $search = $request->query->get('search');
+        $search = $request->query->get('elem');
         $barcode_found = $this->getDoctrine()->getRepository('StockHavenBundle:barcode')->findOneBy(array('barcode'=>$search));
         $user_current = $this->get('user.services')->format_response($this->getUser());
         $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user_current['id']);
