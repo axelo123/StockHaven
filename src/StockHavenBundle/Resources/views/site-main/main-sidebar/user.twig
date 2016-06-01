@@ -7,7 +7,7 @@
     </div>
     <div class="col-xs-12">
         <!-- sidebar-form -->
-        <form action="#" id="search"  class="sidebar-form">
+        <!--<form action="#" id="search"  class="sidebar-form">
             <div class="input-group">
                 <input type="text" id="q" name="elem" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
@@ -15,7 +15,8 @@
                     </button>
                 </span>
             </div>
-        </form>
+        </form>-->
+        <input type="text" id="q" name="elem" class="form-control" placeholder="Search...">
     </div>
 </div>
 <script>
@@ -24,5 +25,4 @@
         post_form('{{ path('sh_search') }}',$(this).serialize());
         $('#q').val('');
     });
-
 </script>
