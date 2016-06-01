@@ -79,6 +79,7 @@
         function search() {
             post_form('{{ path('sh_search') }}',$('#axelosearch').serialize());
             $('#q').val('');
+            $('#q').hideKeyboard();
         }
         $("#q").on("focus", function () {
             alert("yolo");
