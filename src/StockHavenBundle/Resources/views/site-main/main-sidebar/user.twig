@@ -22,6 +22,7 @@
     $('#search').submit(function(e) {
         e.preventDefault();
         post_form('{{ path('sh_search') }}',$(this).serialize());
-        //document.getElementById('q').reset();
+        $('#q').val('');
     });
+
 </script>
