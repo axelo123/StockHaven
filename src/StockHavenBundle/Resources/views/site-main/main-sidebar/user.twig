@@ -9,7 +9,7 @@
         <!-- sidebar-form -->
         <form action="#" id="search"  class="sidebar-form">
             <div class="input-group">
-                <input type="text" id="q" name="elem" class="form-control" placeholder="Search...">
+                <input  id="q" name="elem" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
                     <button type="submit" name="buttonS" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                     </button>
@@ -24,5 +24,4 @@
         post_form('{{ path('sh_search') }}',$(this).serialize());
         document.getElementById('q').reset();
     });
-
 </script>
