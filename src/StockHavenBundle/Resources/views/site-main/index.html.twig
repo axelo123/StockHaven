@@ -80,6 +80,10 @@
             post_form('{{ path('sh_search') }}',$('#axelosearch').serialize());
             $('#q').val('');
         }
+        $("#q").on("focus", function () {
+            alert("yolo");
+            $(".mobile-search").css("position", "fixed");
+        });
 
     </script>
 {% endblock %}
