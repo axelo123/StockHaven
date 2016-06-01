@@ -18,7 +18,7 @@
         <li class="dropdown user user-menu" >
             <form action="#" onsubmit="search(); return false;"  id="axelosearch"  class="sidebar-form desktop-search" >
                 <div class="input-group">
-                    <input type="text" id="q" name="elem" class="form-control" placeholder="Search...">
+                    <input type="text" id="q" name="elem" autocomplete="off" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
                         <button type="submit" name="buttonS" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                         </button>
@@ -81,11 +81,6 @@
             $('#q').val('');
             $('#q').hideKeyboard();
         }
-        $("#q").on("focus", function () {
-            alert("yolo");
-            $(".mobile-search").css("position", "fixed");
-        });
-
     </script>
 {% endblock %}
 {% block control_sidebar_lte %}
