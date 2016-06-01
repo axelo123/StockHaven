@@ -16,16 +16,15 @@
 {% block menu_rigth_lte %}
     <ul class="nav navbar-nav" >
         <li class="dropdown user user-menu" >
-
-                <form action="#"  id="axelosearch"  class="sidebar-form desktop-search" >
-                    <div class="input-group">
-                        <input type="text" id="q" name="elem" class="form-control" placeholder="Search...">
-                <span class="input-group-btn">
-                    <button type="submit" name="buttonS" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                    </button>
-                </span>
-                    </div>
-                </form>
+            <form action="#" onsubmit="search(); return false;"  id="axelosearch"  class="sidebar-form desktop-search" >
+                <div class="input-group">
+                    <input type="text" id="q" name="elem" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                        <button type="submit" name="buttonS" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
         </li>
         <!-- Control Sidebar Toggle Button -->
         <li id="axelohref" class="desktop-href">
@@ -77,11 +76,11 @@
         $(window).resize(function() {
             axeloresize();
         });
-        $('#axelosearch').submit(function(e) {
-            e.preventDefault();
-            post_form('{{ path('sh_search') }}',$(this).serialize());
+        function search() {
+            post_form('{{ path('sh_search') }}',$('#axelosearch').serialize());
             $('#q').val('');
-        });
+        }
+
     </script>
 {% endblock %}
 {% block control_sidebar_lte %}
