@@ -14,13 +14,10 @@
 {% block logo_mini_lte %}<b>SH</b>{% endblock %}
 {% block logo_lg_lte %}<b>Stock</b>Haven{% endblock %}
 {% block menu_rigth_lte %}
-        <ul class="nav navbar-nav">
-            <!-- Control Sidebar Toggle Button -->
-            <li>
-                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-            </li>
-            <li>
-                <form action="#" id="search"  class="sidebar-form">
+    <ul class="nav navbar-nav" >
+        <li class="dropdown user user-menu" >
+
+                <form action="#"  id="axelosearch"  class="sidebar-form desktop-search" >
                     <div class="input-group">
                         <input type="text" id="q" name="elem" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
@@ -29,11 +26,14 @@
                 </span>
                     </div>
                 </form>
-            </li>
-            <li>
-                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-            </li>
-        </ul>
+        </li>
+        <!-- Control Sidebar Toggle Button -->
+        <li id="axelohref" class="desktop-href">
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+        </li>
+    </ul>
+
+
 {% endblock %}
 {% block main_sidebar_lte %}
     {% include "StockHavenBundle:site-main:main-sidebar.include.twig" %}
@@ -56,6 +56,32 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
     <script>
         get_part_html_put_content(null,'{{ path_ajax }}/dashboard','content-content-lte');
+    </script>
+    <script>
+
+        function axeloresize() {
+            if($(window).width()<600)
+            {
+                $('#axelosearch').removeClass("desktop-search").addClass('mobile-search');
+                $('#axelohref').removeClass("desktop-href").addClass('mobile-href');
+            }
+            else
+            {
+                $('#axelosearch').removeClass("mobile-search").addClass('desktop-search');
+                $('#axelohref').removeClass("mobile-href").addClass('desktop-href');
+            }
+        }
+        $(window).ready(function() {
+            axeloresize();
+        });
+        $(window).resize(function() {
+            axeloresize();
+        });
+        $('#axelosearch').submit(function(e) {
+            e.preventDefault();
+            post_form('{{ path('sh_search') }}',$(this).serialize());
+            $('#q').val('');
+        });
     </script>
 {% endblock %}
 {% block control_sidebar_lte %}

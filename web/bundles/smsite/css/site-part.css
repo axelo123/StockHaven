@@ -13,6 +13,35 @@ blockquote.style1 span {
     background-position: bottom right;
 }
 
+.desktop-search
+{
+    position: fixed;
+    top: -0.4%;
+    left: 35%;
+    right: 35%;
+}
+
+.mobile-search
+{
+    position: fixed;
+    top: 5.4%;
+    left: 7%;
+    right: 8%;
+}
+
+.desktop-href
+{
+    position: fixed;
+    top: -0.2%;
+    right: 0;
+}
+
+.mobile-href
+{
+    position: fixed;
+    top: 5.8%;
+    left: 90.5%;
+}
 .empty
 {
     background: chocolate;
