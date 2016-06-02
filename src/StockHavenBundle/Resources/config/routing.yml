@@ -116,7 +116,7 @@ sh_stock_add_stock_in_item:
     defaults: { _controller:  StockHavenBundle:StockItem:addStockInItem }
 
 sh_stock_remove_stock_in_item:
-    path:     /ajax/stock/removeItemInStock
+    path:     /ajax/stock/removeStockInItem
     defaults: { _controller: StockHavenBundle:StockItem:removeStockInItems }
 
 sh_stock_remove_item_in_stock:

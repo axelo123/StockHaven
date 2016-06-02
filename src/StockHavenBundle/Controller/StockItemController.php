@@ -125,6 +125,10 @@ class StockItemController extends Controller
         return $this->successSelectStock($item->getName()." remove in ".$stock->getName()." !!!",$item);
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function removeStockInItemsAction(Request $request)
     {
         $stock = $request->query->get('stock_id');
@@ -161,6 +165,12 @@ class StockItemController extends Controller
         return $this->successSelectItem($item->getName()." remove in ".$stock->getName()." !!!",$stock);
     }
 
+    /**
+     * Vue avec message d'erreur pour un stock
+     * @param $message
+     * @param $stock
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function errorSelectItem($message,$stock)
     {
         $items = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findAll();
@@ -175,6 +185,11 @@ class StockItemController extends Controller
         ));
     }
 
+    /**
+     * @param $message
+     * @param $stock
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function successSelectItem($message,$stock)
     {
         $items = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findAll();
@@ -189,6 +204,10 @@ class StockItemController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function addStockInItemAction(Request $request)
     {
         $stock = $request->query->get('stock_id');
@@ -226,6 +245,10 @@ class StockItemController extends Controller
         return $this->successSelectItem($item->getName()." add in ".$stock->getName()." !!!",$stock);
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function addStockAction(Request $request)
     {
         $stock_id = $request->query->get('id');
