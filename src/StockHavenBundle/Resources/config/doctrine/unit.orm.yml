@@ -1,7 +1,7 @@
-StockHavenBundle\Entity\type:
+StockHavenBundle\Entity\unit:
     type: entity
     table: null
-    repositoryClass: StockHavenBundle\Repository\typeRepository
+    repositoryClass: StockHavenBundle\Entity\unitRepository
     id:
         id:
             type: integer
@@ -9,7 +9,12 @@ StockHavenBundle\Entity\type:
             generator:
                 strategy: AUTO
     fields:
-        name:
+        longName:
             type: string
             length: 255
+            column: long_name
+        shortName:
+            type: string
+            length: 255
+            column: short_name
     lifecycleCallbacks: {  }

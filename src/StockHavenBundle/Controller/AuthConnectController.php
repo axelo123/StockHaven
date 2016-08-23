@@ -58,6 +58,7 @@ class AuthConnectController extends Controller
 
 
     /**
+     * déconnection
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -76,6 +77,8 @@ class AuthConnectController extends Controller
     }
 
     /**
+     * connexion
+     *
      * @return Response
      */
     public function StartAction()
@@ -87,7 +90,8 @@ class AuthConnectController extends Controller
         }
     }
 
-    /**
+    /** inscription
+     *
      * @return Response
      */
     public function RegisterAction()
@@ -100,6 +104,7 @@ class AuthConnectController extends Controller
     }
 
     /**
+     * vérification de l'inscription
      * @param Request $request
      * @return Response
      */

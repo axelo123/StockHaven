@@ -32,6 +32,11 @@ class saveOperation
      */
     private $itemId;
 
+    /**
+     * @var int
+     */
+    private $quantity;
+
 
     /**
      * Get id
@@ -43,6 +48,30 @@ class saveOperation
         return $this->id;
     }
 
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     *
+     * @return item
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return int
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
     /**
      * Set modificationDate
      *

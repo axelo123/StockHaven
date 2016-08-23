@@ -18,7 +18,7 @@ class item
     private $name;
 
     /**
-     * @var int
+     * @var float
      */
     private $quantity;
 
@@ -56,6 +56,11 @@ class item
      * @var barcode
      */
     private $barcodeId;
+
+    /**
+     * @var unit
+     */
+    private $unitId;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -110,7 +115,7 @@ class item
     /**
      * Set quantity
      *
-     * @param integer $quantity
+     * @param float $quantity
      *
      * @return item
      */
@@ -124,7 +129,7 @@ class item
     /**
      * Get quantity
      *
-     * @return int
+     * @return float
      */
     public function getQuantity()
     {
@@ -273,6 +278,29 @@ class item
     public function getCurrencyId()
     {
         return $this->currencyId;
+    }
+    /**
+     * Set unitId
+     *
+     * @param unit $unitId
+     *
+     * @return item
+     */
+    public function setUnitId($unitId)
+    {
+        $this->unitId = $unitId;
+
+        return $this;
+    }
+
+    /**
+     * Get unitId
+     *
+     * @return unit
+     */
+    public function getUnitId()
+    {
+        return $this->unitId;
     }
 
     /**

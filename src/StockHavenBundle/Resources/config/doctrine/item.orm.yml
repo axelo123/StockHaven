@@ -13,7 +13,7 @@ StockHavenBundle\Entity\item:
             type: string
             length: 255
         quantity:
-            type: integer
+            type: float
             nullable: true
         isDelete:
             type: boolean
@@ -47,6 +47,12 @@ StockHavenBundle\Entity\item:
             targetEntity: currency
             joinColumn:
                 name: currency_id
+                referencedColumnName: id
+            nullable: true
+        unitId:
+            targetEntity: unit
+            joinColumn:
+                name: unit_id
                 referencedColumnName: id
             nullable: true
         typeId:

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ItemController extends Controller
 {
     /**
+     * affichage des items
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function itemAction()
@@ -31,6 +32,7 @@ class ItemController extends Controller
     }
 
     /**
+     * edition d'un item la (vue)
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -51,6 +53,7 @@ class ItemController extends Controller
     }
 
     /**
+     * récupération de l'édition
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -125,6 +128,8 @@ class ItemController extends Controller
     }
 
     /**
+     * Message d'erreur
+     *
      * @param $message
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -147,6 +152,8 @@ class ItemController extends Controller
     }
 
     /**
+     * message de réussite
+     *
      * @param $message
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -169,6 +176,7 @@ class ItemController extends Controller
     }
 
     /**
+     * suppréssion d'un item
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -197,6 +205,8 @@ class ItemController extends Controller
     }
 
     /**
+     * création d'un item
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

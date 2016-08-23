@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StockController extends Controller
 {
+    /**
+     * page d'affichage des stocks
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function stockAction()
     {
         $stocks=$this->getDoctrine()->getRepository('StockHavenBundle:stock')->findAll();
@@ -28,6 +32,11 @@ class StockController extends Controller
         ));
     }
 
+    /**
+     * message d'erreur
+     * @param $message
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function stockError($message)
     {
         $stocks=$this->getDoctrine()->getRepository('StockHavenBundle:stock')->findAll();
@@ -43,6 +52,11 @@ class StockController extends Controller
         ));
     }
 
+    /**
+     * message de réussite
+     * @param $message
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function stockSuccess($message)
     {
         $stocks=$this->getDoctrine()->getRepository('StockHavenBundle:stock')->findAll();
@@ -56,7 +70,12 @@ class StockController extends Controller
             'user'=>$user,
         ));
     }
-    
+
+    /**
+     * la vue d'édition de stock
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function editViewAction(Request $request)
     {
         $stock_id = $request->query->get('id');
@@ -66,7 +85,12 @@ class StockController extends Controller
             'stock'=>$stock
         ));
     }
-    
+
+    /**
+     * l'action d'édition d'un stock
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function editAction(Request $request)
     {
         $stock_id = $request->query->get('stock_id');
@@ -101,6 +125,11 @@ class StockController extends Controller
         return $this->stockSuccess("Stock edited !!!");
     }
 
+    /**
+     * suppréssion d'un stock
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function deleteAction(Request $request)
     {
         $stock_id = $request->query->get('id');
@@ -136,7 +165,12 @@ class StockController extends Controller
         return $this->stockSuccess("Stock ".$stockName." deleted !!!");
     }
 
-    
+
+    /**
+     * création d'un nouveau stock
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function createAction(Request $request)
     {
         $name = $request->query->get('name');
@@ -170,6 +204,11 @@ class StockController extends Controller
         return $this->stockSuccess("Stock : ".$stock->getName()." is created !!!");
     }
 
+    /**
+     * suppréssion d'un user dans un stock
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function removeUserAction(Request $request)
     {
         $stock = $request->query->get('id');
@@ -184,6 +223,11 @@ class StockController extends Controller
         return $this->stockSuccess("Access to stock ".$stock->getName()." removed !!!");
     }
 
+    /**
+     * ajout d'un user dans un stock
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function addUserAction(Request $request)
     {
         $stock = $request->query->get('id');

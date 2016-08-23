@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 class SiteController extends Controller
 {
 
+    /**
+     * la vue après connexion
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function dashboardAction()
     {
         $nbUser=$this->getDoctrine()->getRepository('StockHavenBundle:user')->findAll();
@@ -40,6 +44,11 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * la barre de recherche présente a tout moment
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function searchAction(Request $request)
     {
         $search = $request->query->get('elem');
@@ -86,6 +95,12 @@ class SiteController extends Controller
         }
         return $this->render('@StockHaven/research/index.html.twig');
     }
+
+    /**
+     * si l'édition des droits est réalisé
+     * @param $message
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function successDashboard($message)
     {
         $nbUser=$this->getDoctrine()->getRepository('StockHavenBundle:user')->findAll();
@@ -116,6 +131,11 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * quand on ajoute un user en admin
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function AddSuperUserAction(Request $request)
     {
         $user = $request->query->get('id');
@@ -129,6 +149,11 @@ class SiteController extends Controller
         return $this->successDashboard($user->getFullName()." is Super User Now !!!");
     }
 
+    /**
+     * quand on retire un user d'admin
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function removeSuperUserAction(Request $request)
     {
         $user = $request->query->get('id');
@@ -142,6 +167,11 @@ class SiteController extends Controller
         return $this->successDashboard($user->getFullName()." is  not Super User Now !!!");
     }
 
+    /**
+     * menu d'édition de profile
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function profileAction(Request $request)
     {
         $fullName = $request->query->get('fullName');
@@ -210,6 +240,12 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * message d'erreur ou de réussite de changement de profile
+     * @param $message
+     * @param $condition
+     * @return string
+     */
     public function errorAndSuccess($message,$condition)
     {
         switch ($condition)
@@ -244,6 +280,12 @@ class SiteController extends Controller
         }
 
     }
+
+    /**
+     * gestion du menu
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function projectsAction($slug)
     {
         try {
@@ -253,6 +295,11 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * retourne l'erreur 404 not found
+     * @param $path
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function error_404_other_ajaxAction($path)
     {
         return $this->render('@StockHaven/site-part/error/error-404.twig');

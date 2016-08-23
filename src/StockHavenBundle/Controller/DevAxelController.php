@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DevAxelController extends Controller
 {
+    /**
+     * classe de création currency
+     */
     public function currencyAction()
     {
         $currency = new currency();
@@ -30,6 +33,9 @@ class DevAxelController extends Controller
         $em->flush();
     }
 
+    /**
+     * classe de création country
+     */
     public function countryAction()
     {
         $country1 = new country();
