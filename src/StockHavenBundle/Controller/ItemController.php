@@ -62,6 +62,10 @@ class ItemController extends Controller
         $item_id = $request->query->get('item_id');
         $item_name = $request->query->get('name');
         $item_price = $request->query->get('price');
+        if($item_price<0)
+        {
+            return $this->itemError("Price not valided !!!");
+        }
         $item_currency = $request->query->get('currency');
         $item_description = $request->query->get('description');
         $item_type = $request->query->get('type');
@@ -214,6 +218,10 @@ class ItemController extends Controller
     {
         $name = $request->query->get('name');
         $price = $request->query->get('price');
+        if($price<0)
+        {
+            return $this->itemError("Price not valided !!!");
+        }
         $currency = $request->query->get('currency');
         $description = $request->query->get('description');
         $barcode = $request->query->get('barcode');

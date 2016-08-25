@@ -79,6 +79,14 @@
         <div class="col-sm-12">
             {% if user_current.isSuperUser %}
             <div class="box">
+
+                <div id="canvas-holder" style="width:75%">
+                    <canvas id="chart-area" />
+                </div>
+
+
+            </div>
+            <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Users</h3>
                 </div>
@@ -96,15 +104,19 @@
                                 <td>{{ user.fullName }}</td>
                                 <td>
                                     {% if user.isSuperUser == true %}
-                                        <button type="button" onclick='click_with_id("{{ path('sh_dashboard_remove_super_user') }}","{{ user.id }}")' class="btn btn-success">
-                                            <i class="fa fa-check">
-                                            </i>
-                                        </button>
+                                        {% if user.id != 1 %}
+                                            <button type="button" onclick='click_with_id("{{ path('sh_dashboard_remove_super_user') }}","{{ user.id }}")' class="btn btn-success">
+                                                <i class="fa fa-check">
+                                                </i>
+                                            </button>
+                                        {% endif %}
                                     {% else %}
-                                        <button type="button" onclick='click_with_id("{{ path('sh_dashboard_add_super_user') }}","{{ user.id }}")' class="btn btn-danger">
-                                            <i class="fa fa-times">
-                                            </i>
-                                        </button>
+                                        {% if user.id != 1 %}
+                                            <button type="button" onclick='click_with_id("{{ path('sh_dashboard_add_super_user') }}","{{ user.id }}")' class="btn btn-danger">
+                                                <i class="fa fa-times">
+                                                </i>
+                                            </button>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
                             </tr>
@@ -118,3 +130,33 @@
         <div class="col-sm-12"></div>
     </div>
 </div>
+<script id="script-item">
+        var ctx = document.getElementById("chart-area").getContext("2d");
+        var data = {
+            labels: {{ statType|raw }},
+            datasets: [
+                {
+                    data: {{ nbStat|raw }},
+                    backgroundColor: {{ typeColor|raw }}
+
+                }]
+        };
+        var myDoughnutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'nb item in type'
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        });
+</script>

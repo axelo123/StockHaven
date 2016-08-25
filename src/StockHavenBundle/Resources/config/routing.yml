@@ -30,6 +30,10 @@ sh_dev_axel:
     path:     /dev/axel/currency
     defaults: {_controller: StockHavenBundle:DevAxel:currency }
 
+sh_dev_axel3:
+    path:     /dev/axel/type
+    defaults: { _controller: StockHavenBundle:DevAxel:type }
+
 #
 # affichage du projet
 #

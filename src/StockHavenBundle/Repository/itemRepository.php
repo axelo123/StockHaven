@@ -10,4 +10,13 @@ namespace StockHavenBundle\Repository;
  */
 class itemRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function statItem ()
+    {
+        $con = $this->getEntityManager()->getConnection();
+        $q = $con->prepare("SELECT count(*) as nb,type.name as name FROM item JOIN type on type.id = item.type_id group by type.id");
+        $q->execute();
+        $result = $q->fetchAll();
+        return $result;
+        //$query = $this->_em->createQuery();
+    }
 }

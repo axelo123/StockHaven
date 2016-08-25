@@ -4,6 +4,7 @@ namespace StockHavenBundle\Controller;
 
 use StockHavenBundle\Entity\country;
 use StockHavenBundle\Entity\currency;
+use StockHavenBundle\Entity\type;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
@@ -31,6 +32,8 @@ class DevAxelController extends Controller
         $em->persist($currency1);
         $em->persist($currency2);
         $em->flush();
+
+        return ("it's ok");
     }
 
     /**
@@ -56,5 +59,33 @@ class DevAxelController extends Controller
         $em->persist($country3);
         $em->persist($country4);
         $em->flush();
+
+        return ("it's ok");
+    }
+
+    /**
+     * classe de création de type
+     */
+    public function typeAction()
+    {
+        $type1 = new type();
+        $type1->setName("Boisson");
+        $type2 = new type();
+        $type2->setName("Fruit");
+        $type3 = new type();
+        $type3->setName("Légume");
+        $type4 = new type();
+        $type4->setName("Pâte");
+        $type5 = new type();
+        $type5->setName("Riz");
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($type1);
+        $em->persist($type2);
+        $em->persist($type3);
+        $em->persist($type4);
+        $em->persist($type5);
+        $em->flush();
+
+        return ("it's ok");
     }
 }

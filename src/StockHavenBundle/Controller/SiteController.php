@@ -5,7 +5,10 @@ namespace StockHavenBundle\Controller;
 
 use StockHavenBundle\Entity\user;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
 
 
 class SiteController extends Controller
@@ -28,6 +31,17 @@ class SiteController extends Controller
         $nbStore = count($nbStore);
         $user_current = $this->getUser();
         $user_current = $this->get('user.services')->format_response($user_current);
+        $statItem=$this->getDoctrine()->getRepository('StockHavenBundle:item')->statItem();
+        $type = [];
+        $typeColor = [];
+        $nbStat = [];
+        for($i=0;$i<count($statItem);$i++)
+        {
+            $type[] = $statItem[$i]['name'];
+            $nbStat[] = $statItem[$i]['nb'];
+            $typeColor[] = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+        }
+
         try
         {
             return $this->render('@StockHaven/site-part/dashboard/index.html.twig',array(
@@ -36,10 +50,14 @@ class SiteController extends Controller
                 'nbStock'=>$nbStock,
                 'nbStore'=>$nbStore,
                 'users'=>$users,
-                'user_current'=>$user_current
+                'user_current'=>$user_current,
+                'statType'=>json_encode($type),
+                'typeColor'=>json_encode($typeColor),
+                'nbStat'=>json_encode($nbStat)
             ));
         } catch (\Exception $ex)
         {
+            return new Response($ex->getMessage());
             return $this->render('@StockHaven/site-part/error/error-404.twig');
         }
     }
