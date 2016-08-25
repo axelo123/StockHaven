@@ -82,6 +82,36 @@
 
                 <div id="canvas-holder" style="width:75%">
                     <canvas id="chart-area" />
+                    <script id="script-item">
+                        var ctx = document.getElementById("chart-area").getContext("2d");
+                        var data = {
+                            labels: {{ statType|raw }},
+                            datasets: [
+                                {
+                                    data: {{ nbStat|raw }},
+                                    backgroundColor: {{ typeColor|raw }}
+
+                                }]
+                        };
+                        var myDoughnutChart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: data,
+                            options: {
+                                responsive: true,
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'nb item in type'
+                                },
+                                animation: {
+                                    animateScale: true,
+                                    animateRotate: true
+                                }
+                            }
+                        });
+                    </script>
                 </div>
 
 
@@ -130,33 +160,4 @@
         <div class="col-sm-12"></div>
     </div>
 </div>
-<script id="script-item">
-        var ctx = document.getElementById("chart-area").getContext("2d");
-        var data = {
-            labels: {{ statType|raw }},
-            datasets: [
-                {
-                    data: {{ nbStat|raw }},
-                    backgroundColor: {{ typeColor|raw }}
 
-                }]
-        };
-        var myDoughnutChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'nb item in type'
-                },
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                }
-            }
-        });
-</script>
