@@ -207,7 +207,7 @@ class notification
      *
      * @return notification
      */
-    public function addUserId(user $userId)
+    public function addUserId($userId)
     {
         $this->userId[] = $userId;
 

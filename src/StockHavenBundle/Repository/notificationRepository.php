@@ -10,4 +10,17 @@ namespace StockHavenBundle\Repository;
  */
 class notificationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getNotif($creatorId)
+    {
+        $con = $this->getEntityManager()->getConnection();
+        $q = $con->prepare("SELECT notification.id as id, user.full_name as fullname, stock.name as stock, notification.create_date as date_create  FROM `notification` 
+JOIN stock ON stock_id = stock.id 
+JOIN user ON user_id = user.id
+WHERE stock.user_creator_id = ".$creatorId." 
+AND is_valided = false 
+ORDER BY create_date");
+        $q->execute();
+        $result = $q->fetchAll();
+        return $result;
+    }
 }

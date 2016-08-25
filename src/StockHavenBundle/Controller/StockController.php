@@ -3,10 +3,14 @@
 namespace StockHavenBundle\Controller;
 
 use StockHavenBundle\Entity\barcode;
+use StockHavenBundle\Entity\notification;
 use StockHavenBundle\Entity\stock;
 use StockHavenBundle\Entity\item_stock;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class StockController extends Controller
@@ -215,9 +219,17 @@ class StockController extends Controller
         $user=$this->get('user.services')->format_response($this->getUser());
         $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
         $stock = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->find($stock);
+        $notif = $this->getDoctrine()->getRepository('StockHavenBundle:notification')->findOneBy(array(
+            'stockId'=>$stock,'userId'=>$user
+        ));
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($stock);
+        if($notif)
+        {
+            $em->remove($notif);
+        }
+
         $stock->removeUser($user);
         $em->flush();
         return $this->stockSuccess("Access to stock ".$stock->getName()." removed !!!");
@@ -230,15 +242,41 @@ class StockController extends Controller
      */
     public function addUserAction(Request $request)
     {
-        $stock = $request->query->get('id');
-        $user=$this->get('user.services')->format_response($this->getUser());
-        $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
-        $stock = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->find($stock);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($stock);
-        $stock->addUser($user);
-        $em->flush();
-        return $this->stockSuccess("Access to stock ".$stock->getName()." granted !!!");
+        try
+        {
+            $stock = $request->query->get('id');
+            $stock = $this->getDoctrine()->getRepository('StockHavenBundle:stock')->find($stock);
+            $user=$this->get('user.services')->format_response($this->getUser());
+            $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
+            $notif = $this->getDoctrine()->getRepository('StockHavenBundle:notification')->findOneBy(array(
+                'stockId'=>$stock->getId(),'userId'=>$this->getUser()->getId()
+            ));
+
+            if(!$notif)
+            {
+                $notif = new notification();
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($notif);
+                $notif->setStockId($stock);
+
+                $notif->setUserId($user);
+
+                $notif->setCreateDate(new \DateTime());
+                $notif->setIsValided(false);
+                $em->flush();
+            }
+            else
+            {
+                return $this->stockError("Already send notification at owner for ".$stock->getName()." !!!");
+            }
+            return $this->stockSuccess("Send Notification at owner for ".$stock->getName()." !!!");
+        }
+        catch(Exception $ex)
+        {
+            return new Response($ex->getMessage());
+        }
+
     }
 }

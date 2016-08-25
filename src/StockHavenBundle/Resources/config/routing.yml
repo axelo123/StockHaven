@@ -226,6 +226,16 @@ sh_type:
     path:     /ajax/type
     defaults: { _controller: StockHavenBundle:Type:type }
 
+#
+# Gestion des Notifs
+#
+sh_notif:
+    path:     /ajax/notif
+    defaults: { _controller: StockHavenBundle:Notification:notif }
+
+sh_notif_addUser:
+    path:     /ajax/addUser
+    defaults: { _controller: StockHavenBundle:Notification:addUser }
 
 
 
