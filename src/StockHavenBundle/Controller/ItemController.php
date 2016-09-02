@@ -99,7 +99,7 @@ class ItemController extends Controller
 
         if($item_name != $item->getName() || $item_description != $item->getDescription() ||
             $item_price != $item->getPrice() || $item_barcode != $item->getBarcodeId()->getBarcode() ||
-            $item_type != $item->getTypeId()->getName() || $currency_tab[0] != $item->getCurrencyId()->getLongName() || $unit_tab[0] != $item->getUnitId()->getLongName())
+            $item_type != $item->getTypeId()->getName() || $item_quantity != $item->getQuantity() || $currency_tab[0] != $item->getCurrencyId()->getLongName() || $unit_tab[0] != $item->getUnitId()->getLongName())
         {
             $em->persist($item);
             if($item_name != $item->getName())
