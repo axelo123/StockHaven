@@ -32,6 +32,7 @@ class SiteController extends Controller
         $user_current = $this->getUser();
         $user_current = $this->get('user.services')->format_response($user_current);
         $statItem=$this->getDoctrine()->getRepository('StockHavenBundle:item')->statItem();
+        $statOperation = $this->getDoctrine()->getRepository('StockHavenBundle:saveOperation')->statSave();
         $type = [];
         $typeColor = [];
         $nbStat = [];
@@ -41,6 +42,7 @@ class SiteController extends Controller
             $nbStat[] = $statItem[$i]['nb'];
             $typeColor[] = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
         }
+
 
         try
         {
@@ -53,7 +55,8 @@ class SiteController extends Controller
                 'user_current'=>$user_current,
                 'statType'=>json_encode($type),
                 'typeColor'=>json_encode($typeColor),
-                'nbStat'=>json_encode($nbStat)
+                'nbStat'=>json_encode($nbStat),
+                'statOperation'=>$statOperation
             ));
         } catch (\Exception $ex)
         {

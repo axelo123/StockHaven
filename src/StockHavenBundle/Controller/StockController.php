@@ -4,6 +4,7 @@ namespace StockHavenBundle\Controller;
 
 use StockHavenBundle\Entity\barcode;
 use StockHavenBundle\Entity\notification;
+use StockHavenBundle\Entity\saveOperation;
 use StockHavenBundle\Entity\stock;
 use StockHavenBundle\Entity\item_stock;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -126,6 +127,17 @@ class StockController extends Controller
 
         $em->flush();
 
+        $operation = $this->getDoctrine()->getRepository('StockHavenBundle:operation')->findOneBy(array(
+            'name'=>"UPDATE"
+        ));
+        $save_operation = new saveOperation();
+        $em->persist($save_operation);
+        $save_operation->setOperationId($operation);
+        $save_operation->setElementName($stock->getName());
+        $save_operation->setTypeElement("stock");
+        $save_operation->setModificationDate(new \DateTime());
+        $em->flush();
+
         return $this->stockSuccess("Stock edited !!!");
     }
 
@@ -159,6 +171,17 @@ class StockController extends Controller
             $em->persist($stock_found);
             foreach($stock_found->getUsers() as $user)
             {
+                $operation = $this->getDoctrine()->getRepository('StockHavenBundle:operation')->findOneBy(array(
+                    'name'=>"DELETE"
+                ));
+                $save_operation = new saveOperation();
+                $em->persist($save_operation);
+                $save_operation->setOperationId($operation);
+                $save_operation->setElementName($stock_found->getName());
+                $save_operation->setTypeElement("stock");
+                $save_operation->setModificationDate(new \DateTime());
+                $em->flush();
+
                 $stock_found->removeUser($user);
             }
             $em->remove($stock_found);
@@ -205,6 +228,18 @@ class StockController extends Controller
         $stock->setUserCreatorId($user);
         $stock->addUser($user);
         $em->flush();
+
+        $operation = $this->getDoctrine()->getRepository('StockHavenBundle:operation')->findOneBy(array(
+            'name'=>"CREATE"
+        ));
+        $save_operation = new saveOperation();
+        $em->persist($save_operation);
+        $save_operation->setOperationId($operation);
+        $save_operation->setElementName($stock->getName());
+        $save_operation->setTypeElement("stock");
+        $save_operation->setModificationDate(new \DateTime());
+        $em->flush();
+
         return $this->stockSuccess("Stock : ".$stock->getName()." is created !!!");
     }
 

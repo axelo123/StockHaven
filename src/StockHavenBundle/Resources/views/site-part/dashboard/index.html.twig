@@ -155,6 +155,34 @@
                 </div>
                 <!-- /.box-body -->
             </div>
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Operation</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tbody><tr>
+                            <th style="width: 10px">#</th>
+                            <th>Element</th>
+                            <th>Type</th>
+                            <th>Operation</th>
+                            <th>date</th>
+
+                        </tr>
+                        {% for statOP in statOperation %}
+                            <tr>
+                                <td></td>
+                                <td>{{ statOP.element }}</td>
+                                <td>{{ statOP.type }}</td>
+                                <td>{{ statOP.operation }}</td>
+                                <td>{{ statOP.date }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody></table>
+                </div>
+                <!-- /.box-body -->
+            </div>
             {% endif %}
         </div>
         <div class="col-sm-12"></div>

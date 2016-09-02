@@ -4,6 +4,7 @@ namespace StockHavenBundle\Controller;
 
 use StockHavenBundle\Entity\country;
 use StockHavenBundle\Entity\currency;
+use StockHavenBundle\Entity\operation;
 use StockHavenBundle\Entity\type;
 use StockHavenBundle\Entity\unit;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -112,5 +113,21 @@ class DevAxelController extends Controller
         $em->flush();
 
         return ("it's ok");
+    }
+
+    public function operationAction()
+    {
+        $operation1 = new operation();
+        $operation1->setName("CREATE");
+        $operation2 = new operation();
+        $operation2->setName("UPDATE");
+        $operation3 = new operation();
+        $operation3->setName("DELETE");
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($operation1);
+        $em->persist($operation2);
+        $em->persist($operation3);
+        $em->flush();
+
     }
 }

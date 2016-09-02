@@ -23,21 +23,14 @@ class saveOperation
     private $operationId;
 
     /**
-     * @var stock
+     * @var string
      */
-    private $stockId;
+    private $element_name;
 
     /**
-     * @var item
+     * @var string
      */
-    private $itemId;
-
-    /**
-     * @var int
-     */
-    private $quantity;
-
-
+    private $type_element;
     /**
      * Get id
      *
@@ -49,29 +42,6 @@ class saveOperation
     }
 
 
-    /**
-     * Set quantity
-     *
-     * @param integer $quantity
-     *
-     * @return item
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Get quantity
-     *
-     * @return int
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
     /**
      * Set modificationDate
      *
@@ -121,50 +91,45 @@ class saveOperation
     }
 
     /**
-     * Set stockId
+     * Set element_name
      *
-     * @param stock $stockId
+     * @param string $element_name
      *
      * @return saveOperation
      */
-    public function setStockId($stockId)
+    public function setElementName($element_name)
     {
-        $this->stockId = $stockId;
+        $this->element_name = $element_name;
 
         return $this;
     }
 
     /**
-     * Get stockId
+     * Get element_name
      *
-     * @return stock
+     * @return string
      */
-    public function getStockId()
+    public function getElementName()
     {
-        return $this->stockId;
+        return $this->element_name;
     }
 
     /**
-     * Set itemId
-     *
-     * @param item $itemId
-     *
-     * @return saveOperation
+     * @param $type_element
+     * @return $this
      */
-    public function setItemId($itemId)
+    public function setTypeElement($type_element)
     {
-        $this->itemId = $itemId;
+        $this->type_element = $type_element;
 
         return $this;
     }
 
     /**
-     * Get itemId
-     *
-     * @return item
+     * @return string
      */
-    public function getItemId()
+    public function getTypeElement()
     {
-        return $this->itemId;
+        return $this->type_element;
     }
 }

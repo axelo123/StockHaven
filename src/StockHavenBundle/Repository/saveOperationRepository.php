@@ -10,4 +10,15 @@ namespace StockHavenBundle\Repository;
  */
 class saveOperationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function statSave ()
+    {
+        $con = $this->getEntityManager()->getConnection();
+        $q = $con->prepare("SELECT save_operation.element_name AS element, save_operation.type_element AS type, operation.name AS operation, save_operation.modification_date AS date 
+FROM save_operation
+JOIN operation ON save_operation.operation_id = operation.id
+ORDER BY save_operation.modification_date DESC");
+        $q->execute();
+        $result = $q->fetchAll();
+        return $result;
+    }
 }

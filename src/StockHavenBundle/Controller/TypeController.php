@@ -3,6 +3,7 @@
 namespace StockHavenBundle\Controller;
 
 
+use StockHavenBundle\Entity\saveOperation;
 use StockHavenBundle\Entity\stock;
 use StockHavenBundle\Entity\store;
 use StockHavenBundle\Entity\type;
@@ -82,6 +83,18 @@ class TypeController extends Controller
             if($type && !$item)
             {
                 $em=$this->getDoctrine()->getManager();
+
+                $operation = $this->getDoctrine()->getRepository('StockHavenBundle:operation')->findOneBy(array(
+                    'name'=>"DELETE"
+                ));
+                $save_operation = new saveOperation();
+                $em->persist($save_operation);
+                $save_operation->setOperationId($operation);
+                $save_operation->setElementName($type->getName());
+                $save_operation->setTypeElement("type");
+                $save_operation->setModificationDate(new \DateTime());
+                $em->flush();
+
                 $em->remove($type);
                 $em->flush();
             }
@@ -109,6 +122,16 @@ class TypeController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($type);
                 $type->setName($name);
+                $em->flush();
+                $operation = $this->getDoctrine()->getRepository('StockHavenBundle:operation')->findOneBy(array(
+                    'name'=>"CREATE"
+                ));
+                $save_operation = new saveOperation();
+                $em->persist($save_operation);
+                $save_operation->setOperationId($operation);
+                $save_operation->setElementName($type->getName());
+                $save_operation->setTypeElement("type");
+                $save_operation->setModificationDate(new \DateTime());
                 $em->flush();
             }else
             {
@@ -145,6 +168,18 @@ class TypeController extends Controller
                 $em->persist($type);
                 $type->setName($name);
                 $em->flush();
+
+                $operation = $this->getDoctrine()->getRepository('StockHavenBundle:operation')->findOneBy(array(
+                    'name'=>"UPDATE"
+                ));
+                $save_operation = new saveOperation();
+                $em->persist($save_operation);
+                $save_operation->setOperationId($operation);
+                $save_operation->setElementName($type->getName());
+                $save_operation->setTypeElement("type");
+                $save_operation->setModificationDate(new \DateTime());
+                $em->flush();
+
             } else {
                 $this->typeError("Type already up to date !!!");
             }

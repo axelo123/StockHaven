@@ -38,6 +38,10 @@ sh_dev_axel4:
     path:     /dev/axel/unit
     defaults: { _controller: StockHavenBundle:DevAxel:unit }
 
+sh_dev_axel5:
+    path:     /dev/axel/operation
+    defaults: { _controller: StockHavenBundle:DevAxel:operation }
+
 #
 # affichage du projet
 #

@@ -4,9 +4,12 @@ namespace StockHavenBundle\Controller;
 
 use StockHavenBundle\Entity\barcode;
 use StockHavenBundle\Entity\item;
+use StockHavenBundle\Entity\saveOperation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 class ItemController extends Controller
@@ -97,9 +100,9 @@ class ItemController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if($item_name != $item->getName() || $item_description != $item->getDescription() ||
+        if($item_name != $item->getName() || $item_quantity != $item->getQuantity() || $item_description != $item->getDescription() ||
             $item_price != $item->getPrice() || $item_barcode != $item->getBarcodeId()->getBarcode() ||
-            $item_type != $item->getTypeId()->getName() || $item_quantity != $item->getQuantity() || $currency_tab[0] != $item->getCurrencyId()->getLongName() || $unit_tab[0] != $item->getUnitId()->getLongName())
+            $item_type != $item->getTypeId()->getName()  || $currency_tab[0] != $item->getCurrencyId()->getLongName() || $unit_tab[0] != $item->getUnitId()->getLongName())
         {
             $em->persist($item);
             if($item_name != $item->getName())
@@ -142,6 +145,17 @@ class ItemController extends Controller
             return $this->itemError("Item up to date !!!");
         }
 
+        $em->flush();
+
+        $operation = $this->getDoctrine()->getRepository('StockHavenBundle:operation')->findOneBy(array(
+            'name'=>"UPDATE"
+        ));
+        $save_operation = new saveOperation();
+        $em->persist($save_operation);
+        $save_operation->setOperationId($operation);
+        $save_operation->setElementName($item->getName());
+        $save_operation->setTypeElement("item");
+        $save_operation->setModificationDate(new \DateTime());
         $em->flush();
 
         return $this->itemSuccess("Item edited !!!");
@@ -215,6 +229,18 @@ class ItemController extends Controller
         {
             $barcode = $this->getDoctrine()->getRepository('StockHavenBundle:barcode')->find($item_found->getBarcodeId());
             $em=$this->getDoctrine()->getManager();
+
+            $operation = $this->getDoctrine()->getRepository('StockHavenBundle:operation')->findOneBy(array(
+                'name'=>"DELETE"
+            ));
+            $save_operation = new saveOperation();
+            $em->persist($save_operation);
+            $save_operation->setOperationId($operation);
+            $save_operation->setElementName($item_found->getName());
+            $save_operation->setTypeElement("item");
+            $save_operation->setModificationDate(new \DateTime());
+            $em->flush();
+
             $em->persist($item_found);
             $em->remove($barcode);
             $em->remove($item_found);
@@ -299,6 +325,18 @@ class ItemController extends Controller
         $item->setTypeId($type);
         $item->addStore($store);
         $em->flush();
+
+        $operation = $this->getDoctrine()->getRepository('StockHavenBundle:operation')->findOneBy(array(
+            'name'=>"CREATE"
+        ));
+        $save_operation = new saveOperation();
+        $em->persist($save_operation);
+        $save_operation->setOperationId($operation);
+        $save_operation->setElementName($item->getName());
+        $save_operation->setTypeElement("item");
+        $save_operation->setModificationDate(new \DateTime());
+        $em->flush();
+
         return $this->itemSuccess("Success");
     }
 }
