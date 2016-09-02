@@ -5,6 +5,7 @@ namespace StockHavenBundle\Controller;
 use StockHavenBundle\Entity\barcode;
 use StockHavenBundle\Entity\item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -18,6 +19,7 @@ class ItemController extends Controller
     {
         $stores = $this->getDoctrine()->getRepository('StockHavenBundle:store')->findAll();
         $currency = $this->getDoctrine()->getRepository('StockHavenBundle:currency')->findAll();
+        $unit = $this->getDoctrine()->getRepository('StockHavenBundle:unit')->findAll();
         $items = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findAll();
         $user = $this->get('user.services')->format_response($this->getUser());
         $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
@@ -27,7 +29,8 @@ class ItemController extends Controller
             'types'=>$types,
             'items'=>$items,
             'user'=>$user,
-            'stores'=>$stores
+            'stores'=>$stores,
+            'units'=>$unit
         ));
     }
 
@@ -43,12 +46,14 @@ class ItemController extends Controller
         $stores = $this->getDoctrine()->getRepository('StockHavenBundle:store')->findAll();
         $currency = $this->getDoctrine()->getRepository('StockHavenBundle:currency')->findAll();
         $types = $this->getDoctrine()->getRepository('StockHavenBundle:type')->findAll();
+        $unit = $this->getDoctrine()->getRepository('StockHavenBundle:unit')->findAll();
 
         return $this->render('@StockHaven/edit/index.html.twig',array(
             'item'=>$item,
             'stores'=>$stores,
             'currency'=>$currency,
-            'types'=>$types
+            'types'=>$types,
+            'units'=>$unit
         ));
     }
 
@@ -62,14 +67,16 @@ class ItemController extends Controller
         $item_id = $request->query->get('item_id');
         $item_name = $request->query->get('name');
         $item_price = $request->query->get('price');
-        if($item_price<0)
+        $item_quantity = $request->query->get('quantity');
+        if($item_price<0 || $item_quantity<0)
         {
-            return $this->itemError("Price not valided !!!");
+            return $this->itemError("Price or quantity not valided !!!");
         }
         $item_currency = $request->query->get('currency');
         $item_description = $request->query->get('description');
         $item_type = $request->query->get('type');
         $item_barcode = $request->query->get('barcode');
+        $item_unit = $request->query->get('unit');
 
         $item = $this->getDoctrine()->getRepository('StockHavenBundle:item')->find($item_id);
 
@@ -80,6 +87,10 @@ class ItemController extends Controller
         $currency = $this->getDoctrine()->getRepository('StockHavenBundle:currency')->findOneBy(array(
             'longName'=>$currency_tab[0]
             ));
+        $unit_tab = explode(" ",$item_unit);
+        $unit = $this->getDoctrine()->getRepository('StockHavenBundle:unit')->findOneBy(array(
+            'longName'=>$unit_tab[0]
+        ));
         $type = $this->getDoctrine()->getRepository('StockHavenBundle:type')->findOneBy(array(
             'name'=>$item_type
         ));
@@ -88,7 +99,7 @@ class ItemController extends Controller
 
         if($item_name != $item->getName() || $item_description != $item->getDescription() ||
             $item_price != $item->getPrice() || $item_barcode != $item->getBarcodeId()->getBarcode() ||
-            $item_type != $item->getTypeId()->getName())
+            $item_type != $item->getTypeId()->getName() || $currency_tab[0] != $item->getCurrencyId()->getLongName() || $unit_tab[0] != $item->getUnitId()->getLongName())
         {
             $em->persist($item);
             if($item_name != $item->getName())
@@ -103,6 +114,14 @@ class ItemController extends Controller
             {
                 $item->setPrice($item_price);
             }
+            if($item_quantity != $item->getQuantity())
+            {
+                $item->setQuantity($item_quantity);
+            }
+            if($currency_tab[0] != $item->getCurrencyId()->getLongName())
+            {
+                $item->setCurrencyId($currency);
+            }
             if($item_barcode != $item->getBarcodeId()->getBarcode())
             {
                 $em->persist($barcode);
@@ -113,12 +132,9 @@ class ItemController extends Controller
                 $em->persist($type);
                 $type->setName($item_type);
             }
-            if($currency_tab[0] != $item->getCurrencyId()->getLongName())
+            if($unit_tab[0] != $item->getUnitId()->getLongName())
             {
-                $em->persist($currency);
-                $currency->setLongName($currency_tab[0]);
-                $currency->setShortName($currency_tab[1]);
-                $currency->setSymbol($currency_tab[2]);
+                $item->setUnitId($unit);
             }
         }
         else
@@ -144,6 +160,7 @@ class ItemController extends Controller
         $user = $this->getDoctrine()->getRepository('StockHavenBundle:user')->find($user['id']);
         $items = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findAll();
         $currency = $this->getDoctrine()->getRepository('StockHavenBundle:currency')->findAll();
+        $unit = $this->getDoctrine()->getRepository('StockHavenBundle:unit')->findAll();
         $types = $this->getDoctrine()->getRepository('StockHavenBundle:type')->findAll();
         return $this->render('StockHavenBundle:site-part/item:index.html.twig',array(
             'error'=>$message,
@@ -151,7 +168,8 @@ class ItemController extends Controller
             'types'=>$types,
             'items'=>$items,
             'user'=>$user,
-            'stores'=>$stores
+            'stores'=>$stores,
+            'units'=>$unit
         ));
     }
 
@@ -169,13 +187,15 @@ class ItemController extends Controller
         $items = $this->getDoctrine()->getRepository('StockHavenBundle:item')->findAll();
         $currency = $this->getDoctrine()->getRepository('StockHavenBundle:currency')->findAll();
         $types = $this->getDoctrine()->getRepository('StockHavenBundle:type')->findAll();
+        $unit = $this->getDoctrine()->getRepository('StockHavenBundle:unit')->findAll();
         return $this->render('StockHavenBundle:site-part/item:index.html.twig',array(
             'success'=>$message,
             'currency'=>$currency,
             'types'=>$types,
             'items'=>$items,
             'user'=>$user,
-            'stores'=>$stores
+            'stores'=>$stores,
+            'units'=>$unit
         ));
     }
 
@@ -222,8 +242,11 @@ class ItemController extends Controller
         {
             return $this->itemError("Price not valided !!!");
         }
+
         $currency = $request->query->get('currency');
         $description = $request->query->get('description');
+        $quantity = $request->query->get('quantity');
+        $unit = $request->query->get('unit');
         $barcode = $request->query->get('barcode');
         $type = $request->query->get('type');
         $store = $request->query->get('store');
@@ -251,6 +274,13 @@ class ItemController extends Controller
             'longName'=>$currency_tab[0]
         ));
 
+        $unit_tab = explode(" ",$unit);
+        $unit_repo = $this->getDoctrine()->getRepository('StockHavenBundle:unit');
+        $unit = $unit_repo->findOneBy(array(
+            'longName'=>$unit_tab[0]
+        ));
+
+
         $type_repo = $this->getDoctrine()->getRepository('StockHavenBundle:type');
         $type = $type_repo->findOneBy(array(
             'name'=>$type
@@ -263,6 +293,8 @@ class ItemController extends Controller
         $item->setBarcodeId($barcod);
         $item->setPrice($price);
         $item->setCurrencyId($currency);
+        $item->setQuantity($quantity);
+        $item->setUnitId($unit);
         $item->setDescription($description);
         $item->setTypeId($type);
         $item->addStore($store);

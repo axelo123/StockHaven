@@ -34,6 +34,10 @@ sh_dev_axel3:
     path:     /dev/axel/type
     defaults: { _controller: StockHavenBundle:DevAxel:type }
 
+sh_dev_axel4:
+    path:     /dev/axel/unit
+    defaults: { _controller: StockHavenBundle:DevAxel:unit }
+
 #
 # affichage du projet
 #

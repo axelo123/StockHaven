@@ -5,6 +5,7 @@ namespace StockHavenBundle\Controller;
 use StockHavenBundle\Entity\country;
 use StockHavenBundle\Entity\currency;
 use StockHavenBundle\Entity\type;
+use StockHavenBundle\Entity\unit;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
@@ -84,6 +85,30 @@ class DevAxelController extends Controller
         $em->persist($type3);
         $em->persist($type4);
         $em->persist($type5);
+        $em->flush();
+
+        return ("it's ok");
+    }
+
+    public function unitAction()
+    {
+        $unit1 = new unit();
+        $unit1->setLongName("Litre");
+        $unit1->setShortName("L");
+        $unit2 = new unit();
+        $unit2->setLongName("Kilogramme");
+        $unit2->setShortName("Kg");
+        $unit3 = new unit();
+        $unit3->setLongName("Metre");
+        $unit3->setShortName("m");
+        $unit4 = new unit();
+        $unit4->setLongName("Piece");
+        $unit4->setShortName("p");
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($unit1);
+        $em->persist($unit2);
+        $em->persist($unit3);
+        $em->persist($unit4);
         $em->flush();
 
         return ("it's ok");

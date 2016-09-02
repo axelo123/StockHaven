@@ -23,6 +23,7 @@
                                     type : {{ item.typeId.name }}<br>
                                     Store Found : {{ item.stores.count }}<br>
                                     Price : {{ item.price }} {{ item.currencyId.symbol }}
+                                    Quantity : {{ item.quantity }} {{ item.unitId.shortName }}
                                 </button>
                                 <div class="btn-group">
                                     <button type="button" onclick='click_with_id("{{ path('sh_stock_add_item') }}","{{ item.id }}")' class="btn btn-success"><i class="fa fa-plus"></i></button>

@@ -1,7 +1,7 @@
 StockHavenBundle\Entity\unit:
     type: entity
     table: null
-    repositoryClass: StockHavenBundle\Entity\unitRepository
+    repositoryClass: StockHavenBundle\Repository\unitRepository
     id:
         id:
             type: integer
